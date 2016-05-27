@@ -1,13 +1,3 @@
-ScriptSDK/bin/Debug/ScriptSDK.XML
-ScriptSDK/bin/Debug/ScriptSDK.dll
-ScriptSDK/bin/Debug/ScriptSDK.pdb
-ScriptSDK/obj/Debug/ScriptSDK.dll
-ScriptSDK/obj/Debug/ScriptSDK.pdb
-HelpFile/Help/ScriptSDK Developers API.chm
-HelpFile/Help/LastBuild.log
-ScriptSDK/obj/Debug/ScriptSDK.csproj.FileListAbsolute.txt
-ScriptSDK/bin/
 ScriptSDK/obj/
-HelpFile/Helpfile.shfbproj
+ScriptSDK/bin/
 HelpFile/
-ScriptSDK.rar

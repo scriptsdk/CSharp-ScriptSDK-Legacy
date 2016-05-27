@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1809DE0B-5DAC-4F89-A5A3-601912B9EAB1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ScriptSDK</RootNamespace>
+    <AssemblyName>ScriptSDK</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\ScriptSDK.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Stealth API\Converters.cs" />
+    <Compile Include="Stealth API\Data\AboutData.cs" />
+    <Compile Include="Stealth API\Data\BuffIcon.cs" />
+    <Compile Include="Stealth API\Gumps\Controls\ButtonTileArt.cs" />
+    <Compile Include="Stealth API\Gumps\Controls\CheckBox.cs" />
+    <Compile Include="Stealth API\Gumps\Components\CheckerTrans.cs" />
+    <Compile Include="Stealth API\Data\ClilocItemRec.cs" />
+    <Compile Include="Stealth API\Data\ContextMenu.cs" />
+    <Compile Include="Stealth API\Data\ContextMenuEntry.cs" />
+    <Compile Include="Stealth API\Gumps\Components\CroppedText.cs" />
+    <Compile Include="Stealth API\Gumps\Components\EndGroup.cs" />
+    <Compile Include="Stealth API\Data\ExtendedInfo.cs" />
+    <Compile Include="Stealth API\Data\FoundTile.cs" />
+    <Compile Include="Stealth API\Gumps\Components\Group.cs" />
+    <Compile Include="Stealth API\Gumps\Controls\GumpButton.cs" />
+    <Compile Include="Stealth API\Gumps\GumpInfo.cs" />
+    <Compile Include="Stealth API\Gumps\Components\GumpPic.cs" />
+    <Compile Include="Stealth API\Gumps\Components\GumpPicTiled.cs" />
+    <Compile Include="Stealth API\Gumps\Components\GumpText.cs" />
+    <Compile Include="Stealth API\Gumps\Components\HtmlGump.cs" />
+    <Compile Include="Stealth API\Gumps\Components\ItemProperty.cs" />
+    <Compile Include="Stealth API\Data\LandTileData.cs" />
+    <Compile Include="Stealth API\Data\MapCell.cs" />
+    <Compile Include="Stealth API\Data\MultiItem.cs" />
+    <Compile Include="Stealth API\Data\MyPoint.cs" />
+    <Compile Include="Stealth API\Data\Point.cs" />
+    <Compile Include="Stealth API\Gumps\Controls\Radio.cs" />
+    <Compile Include="Stealth API\Gumps\Components\ResizePic.cs" />
+    <Compile Include="Stealth API\Data\StaticItemRealXY.cs" />
+    <Compile Include="Stealth API\Data\StaticTileData.cs" />
+    <Compile Include="Stealth API\Data\TargetInfo.cs" />
+    <Compile Include="Stealth API\Gumps\Controls\TextEntry.cs" />
+    <Compile Include="Stealth API\Gumps\Controls\TextEntryLimited.cs" />
+    <Compile Include="Stealth API\Gumps\Components\TilePic.cs" />
+    <Compile Include="Stealth API\Gumps\Components\TilePicture.cs" />
+    <Compile Include="Stealth API\Gumps\Components\Tooltip.cs" />
+    <Compile Include="Stealth API\Gumps\Components\XmfHTMLGump.cs" />
+    <Compile Include="Stealth API\Gumps\Components\XmfHTMLGumpColor.cs" />
+    <Compile Include="Stealth API\Gumps\Components\XmfHTMLTok.cs" />
+    <Compile Include="Stealth API\Enums.cs" />
+    <Compile Include="Stealth API\EventArgs.cs" />
+    <Compile Include="Stealth API\Extensions.cs" />
+    <Compile Include="Stealth API\IDeserialized.cs" />
+    <Compile Include="Stealth API\Marshaler.cs" />
+    <Compile Include="Stealth API\Model\Character.cs" />
+    <Compile Include="Stealth API\Network\DataType.cs" />
+    <Compile Include="Stealth API\Network\ExecEventProcData.cs" />
+    <Compile Include="Stealth API\Network\Packet.cs" />
+    <Compile Include="Stealth API\Network\PacketType.cs" />
+    <Compile Include="Stealth API\Network\ServerEventArgs.cs" />
+    <Compile Include="Stealth API\Network\StealthClient.cs" />
+    <Compile Include="Stealth API\Skills.cs" />
+    <Compile Include="Stealth API\Stealth.cs" />
+    <Compile Include="Stealth API\Win32.cs" />
+    <Compile Include="Attributes\BaseAttributes.cs" />
+    <Compile Include="Attributes\Context Menu\ContextMenu.cs" />
+    <Compile Include="Attributes\Context Menu\ContextMenuEntry.cs" />
+    <Compile Include="Attributes\JournalHelper.cs" />
+    <Compile Include="Attributes\MovingHelper.cs" />
+    <Compile Include="Attributes\Paperdoll\Paperdoll.cs" />
+    <Compile Include="Attributes\PartyHelper.cs" />
+    <Compile Include="Attributes\Skills\Skill.cs" />
+    <Compile Include="Attributes\Skills\SkillHelper.cs" />
+    <Compile Include="Attributes\Skills\UseableSkill.cs" />
+    <Compile Include="Attributes\TargetHelper.cs" />
+    <Compile Include="Attributes\TradeHelper.cs" />
+    <Compile Include="Attributes\UOClilocAttributes.cs" />
+    <Compile Include="Attributes\UOStringAttribute.cs" />
+    <Compile Include="Attributes\VendorHelper.cs" />
+    <Compile Include="Attributes\VirtueHelper.cs" />
+    <Compile Include="Configuration\ContextOptions.cs" />
+    <Compile Include="Configuration\ObjectOptions.cs" />
+    <Compile Include="Configuration\ShopOptions.cs" />
+    <Compile Include="Data\Attributes.cs" />
+    <Compile Include="Data\Enumerations.cs" />
+    <Compile Include="Data\Events.cs" />
+    <Compile Include="Data\Extensions.cs" />
+    <Compile Include="Gumps\Extensions\Gump.cs" />
+    <Compile Include="Data\Interfaces.cs" />
+    <Compile Include="Data\Structs.cs" />
+    <Compile Include="Engines\ClilocHelper.cs" />
+    <Compile Include="Engines\EasyUO.cs" />
+    <Compile Include="Engines\GameClient\GameClient.cs" />
+    <Compile Include="Engines\GameClient\GameMessage.cs" />
+    <Compile Include="Engines\ICQ\ICQ.cs" />
+    <Compile Include="Engines\ICQ\ICQMessage.cs" />
+    <Compile Include="Engines\Scanner.cs" />
+    <Compile Include="Engines\ScriptLogger.cs" />
+    <Compile Include="Engines\TileReader.cs" />
+    <Compile Include="Engines\UACHelper.cs" />
+    <Compile Include="Gumps\Components\GumpAlphaRegion.cs" />
+    <Compile Include="Gumps\Components\GumpBackground.cs" />
+    <Compile Include="Gumps\Components\GumpGroup.cs" />
+    <Compile Include="Gumps\Components\GumpHtml.cs" />
+    <Compile Include="Gumps\Components\GumpHtmlLocalized.cs" />
+    <Compile Include="Gumps\Components\GumpImage.cs" />
+    <Compile Include="Gumps\Components\GumpItem.cs" />
+    <Compile Include="Gumps\Components\GumpItemProperty.cs" />
+    <Compile Include="Gumps\Components\GumpLabel.cs" />
+    <Compile Include="Gumps\Components\GumpToolTip.cs" />
+    <Compile Include="Gumps\Controls\GumpButton.cs" />
+    <Compile Include="Gumps\Controls\GumpCheck.cs" />
+    <Compile Include="Gumps\Controls\GumpRadio.cs" />
+    <Compile Include="Gumps\Controls\GumpTextEdit.cs" />
+    <Compile Include="Gumps\Gump.cs" />
+    <Compile Include="Model\Items\Item.cs" />
+    <Compile Include="Model\Items\Container.cs" />
+    <Compile Include="Model\Mobiles\BaseCreature.cs" />
+    <Compile Include="Model\Mobiles\Mobile.cs" />
+    <Compile Include="Model\Mobiles\PlayerMobile.cs" />
+    <Compile Include="Model\Serial.cs" />
+    <Compile Include="Model\Targets\EntityTarget.cs" />
+    <Compile Include="Model\Targets\Target.cs" />
+    <Compile Include="Model\Targets\TileTarget.cs" />
+    <Compile Include="Model\UOEntity.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SDKVersion.cs" />
+    <Compile Include="Samples\Main.cs" />
+    <Compile Include="Utilities\Geometry.cs" />
+    <Compile Include="Utilities\Insensitive.cs" />
+    <Compile Include="Utilities\Utility.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="XML-Base.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="TODO.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Data\Extensions\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

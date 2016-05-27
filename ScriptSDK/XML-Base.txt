@@ -1,0 +1,62 @@
+﻿        
+		/// <summary>
+		/// 
+        /// </summary>
+		
+		
+		/// <summary>
+		/// TODO
+        /// </summary>		
+        /// <example>
+		/// <b>Example #1 </b>
+        /// <code language="CSharp">
+        /// <![CDATA[
+        /// ]]>
+        /// </code>
+        /// </example>
+		
+				
+        /// <example>
+		/// <b>Example #1 </b>
+        /// <code language="CSharp">
+        /// <![CDATA[
+        /// ]]>
+        /// </code>
+        /// </example>
+		
+		PROPERTIES
+		
+        /// <summary>
+        
+        ///TODO.
+        /// <b>Access : </b>        [✔] Getter          [✔] Setter          [✔] API-Call        [✔] Functional      [✔] Constant 
+        /// <b>Visibility : </b>    [✔] Private         [✔] Public          [✔] Protected       [✔] Virtual 
+        
+        /// </summary>
+		
+		FUNCTIONS
+		
+        /// <summary>
+        
+        ///TODO.
+        /// <b>Access : </b>        [✔] API-Call        [✔] Function        [✔] Method          [✔] Auto-Invoke 
+        /// <b>Visibility : </b>    [✔] Private         [✔] Public          [✔] Protected       [✔] Virtual 
+        
+        /// </summary>
+		
+		[☓] False
+		[✔] True
+		
+/*
+███████╗ ██████╗██████╗ ██╗██████╗ ████████╗███████╗██████╗ ██╗  ██╗
+██╔════╝██╔════╝██╔══██╗██║██╔══██╗╚══██╔══╝██╔════╝██╔══██╗██║ ██╔╝
+███████╗██║     ██████╔╝██║██████╔╝   ██║   ███████╗██║  ██║█████╔╝ 
+╚════██║██║     ██╔══██╗██║██╔═══╝    ██║   ╚════██║██║  ██║██╔═██╗ 
+███████║╚██████╗██║  ██║██║██║        ██║   ███████║██████╔╝██║  ██╗
+╚══════╝ ╚═════╝╚═╝  ╚═╝╚═╝╚═╝        ╚═╝   ╚══════╝╚═════╝ ╚═╝  ╚═╝
+*/
+
+
+
+
+[Obsolete] for blocking functions.

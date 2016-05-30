@@ -11,21 +11,5 @@ namespace StealthAPI
         {
             return Enum.TryParse<T>(name.Replace(" ", ""), true, out result);
         }
-
-        public static TResult SafeInvoke<T, TResult>(this T isi, Func<T, TResult> call) where T : ISynchronizeInvoke
-        {
-            if (!isi.InvokeRequired)
-                return call(isi);
-            IAsyncResult result = isi.BeginInvoke((Delegate)call, new object[1] { (object)isi });
-            return (TResult)isi.EndInvoke(result);
-        }
-
-        public static void SafeInvoke<T>(this T isi, Action<T> call) where T : ISynchronizeInvoke
-        {
-            if (isi.InvokeRequired)
-                isi.BeginInvoke((Delegate)call, new object[1] { (object)isi });
-            else
-                call(isi);
-        }
     }
 }

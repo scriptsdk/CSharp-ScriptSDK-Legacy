@@ -10,22 +10,6 @@ namespace StealthAPI
     public static class Marshaler
     {
         /// <summary>
-        /// Перевести объект в массив байт
-        /// </summary>
-        /// <param name="obj">Объект для перевода</param>
-        /// <returns>Массив байт</returns>
-        public static byte[] MarshalToBytes(this object obj)
-        {
-            int size = Marshal.SizeOf(obj);
-            byte[] target = new byte[size];
-            GCHandle gcHandle = GCHandle.Alloc(target, GCHandleType.Pinned);
-            IntPtr ptr = Marshal.UnsafeAddrOfPinnedArrayElement(target, 0);
-            Marshal.StructureToPtr(obj, ptr, false);
-            gcHandle.Free();
-            return target;
-        }
-
-        /// <summary>
         /// Перевести массив байт в объект
         /// </summary>
         /// <param name="buffer">Массив байт</param>

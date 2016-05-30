@@ -41,7 +41,9 @@ namespace StealthAPI
         PartyInvite = 31,
         MapPin = 32,
         GumpTextEntry = 33,
-        GraphicalEffect = 34
+        GraphicalEffect = 34,
+        IRCIncomingText = 35,
+        SkypeEvent = 36
     }
 
     public enum RejectMoveItemReasons : byte

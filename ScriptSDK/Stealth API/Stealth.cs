@@ -18,13 +18,13 @@ namespace StealthAPI
 
         public static void AddTraceMessage(object o, string s)
         {
-            if(EnableTracing)
-                Trace.WriteLine(o,s);
+            if (EnableTracing)
+                Trace.WriteLine(o, s);
         }
         public static void AddTraceMessage(string s1, string s2)
         {
             if (EnableTracing)
-                Trace.WriteLine(s1,s2);
+                Trace.WriteLine(s1, s2);
         }
         public static void AddTraceMessage(object o)
         {
@@ -37,7 +37,7 @@ namespace StealthAPI
                 Trace.WriteLine(s);
         }
 
-        private readonly Version SUPPORTED_VERSION = new Version(6, 5, 3, 1);
+        private readonly Version SUPPORTED_VERSION = new Version(7, 4, 0, 967);
 
         #region Events
         private event EventHandler<ItemEventArgs> ItemInfoInternal;
@@ -75,6 +75,8 @@ namespace StealthAPI
         private event EventHandler<MapPinEventArgs> MapPinInternal;
         private event EventHandler<GumpTextEntryEventArgs> GumpTextEntryInternal;
         private event EventHandler<GraphicalEffectEventArgs> GraphicalEffectInternal;
+        private event EventHandler<IRCIncomingTextEventArgs> IRCIncomingTextInternal;
+        private event EventHandler<SkypeIncomingTextEventArgs> SkypeIncomingTextInternal;
 
         public event EventHandler<ItemEventArgs> ItemInfo
         {
@@ -815,18 +817,58 @@ namespace StealthAPI
             }
         }
 
+        public event EventHandler<IRCIncomingTextEventArgs> IRCIncomingText
+        {
+            add
+            {
+                var handler = IRCIncomingTextInternal;
+                if (handler == null)
+                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.IRCIncomingText, _eventFunctionCounter++);
+                IRCIncomingTextInternal += value;
+            }
+            remove
+            {
+                IRCIncomingTextInternal -= value;
+
+                var handler = IRCIncomingTextInternal;
+                if (handler == null)
+                {
+                    _eventFunctionCounter--;
+                    _client.SendPacket(PacketType.SCClearEventProc, EventTypes.IRCIncomingText);
+                }
+            }
+        }
+
+        public event EventHandler<SkypeIncomingTextEventArgs> SkypeIncomingText
+        {
+            add
+            {
+                var handler = SkypeIncomingTextInternal;
+                if (handler == null)
+                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.SkypeEvent, _eventFunctionCounter++);
+                SkypeIncomingTextInternal += value;
+            }
+            remove
+            {
+                SkypeIncomingTextInternal -= value;
+
+                var handler = SkypeIncomingTextInternal;
+                if (handler == null)
+                {
+                    _eventFunctionCounter--;
+                    _client.SendPacket(PacketType.SCClearEventProc, EventTypes.SkypeEvent);
+                }
+            }
+        }
 
         public event EventHandler<StartStopEventArgs> StartStop;
         #endregion
 
         private StealthClient _client;
-        private readonly Dictionary<string, int> _skills = new Dictionary<string, int>();
+        //private readonly Dictionary<string, int> _skills = new Dictionary<string, int>();
         private uint _dropDelay;
         private byte _eventFunctionCounter;
         private bool _isStopped;
-
-        readonly Character _self;
-        public Character Self { get { return _self; } }
 
         private static Stealth _instance;
         public static Stealth Client
@@ -836,8 +878,6 @@ namespace StealthAPI
 
         private Stealth()
         {
-            _self = new Character(this);
-
             Win32.NativeMessage msg;
             uint value = 0x600;
             Win32.PeekMessage(out msg, 0, value, value, Win32.PM_REMOVE);
@@ -1050,8 +1090,28 @@ namespace StealthAPI
                         (uint)data.Parameters[4], (ushort)data.Parameters[5], (ushort)data.Parameters[6], (int)data.Parameters[7],
                         (byte)data.Parameters[8], (ushort)data.Parameters[9], (byte)data.Parameters[10]);
                     break;
+                case EventTypes.IRCIncomingText:
+                    OnIRCIncomingText((string)data.Parameters[0]);
+                    break;
+                case EventTypes.SkypeEvent:
+                    OnSkypeIncomingText((string)data.Parameters[0], (string)data.Parameters[1], (string)data.Parameters[2], (byte)data.Parameters[3]);
+                    break;
             }
             #endregion
+        }
+
+        private void OnSkypeIncomingText(string senderId, string recieverId, string msg, byte eventCode)
+        {
+            var handler = SkypeIncomingTextInternal;
+            if (handler != null)
+                handler(this, new SkypeIncomingTextEventArgs(senderId, recieverId, msg, eventCode));
+        }
+
+        private void OnIRCIncomingText(string message)
+        {
+            var handler = IRCIncomingTextInternal;
+            if (handler != null)
+                handler(this, new IRCIncomingTextEventArgs(message));
         }
 
         private void OnGraphicalEffect(uint srcId, ushort srcX, ushort srcY, int srcZ, uint dstId, ushort dstX, ushort dstY, int dstZ, byte type, ushort itemId, byte fixedDir)
@@ -1727,33 +1787,24 @@ namespace StealthAPI
 
         #region Skills Func
         #region GetSkillID
-        public bool GetSkillID(string skillName, out int skillId)
+        public bool GetSkillID(Skill skill, out int skillId)
         {
             bool result = false;
-            int val = 250;
 
-            if (_skills.ContainsKey(skillName))
-                result = _skills.TryGetValue(skillName, out val);
-
-            if (!result)
+            if (!skill.IsValidId)
             {
-                skillId = _client.SendPacket<int>(PacketType.SCGetSkillID, skillName);
-                result = skillId < 250;
-                if (result)
-                    _skills[skillName] = skillId;
-
+                skill.Id = _client.SendPacket<int>(PacketType.SCGetSkillID, skill.Value);
             }
-            else
-                skillId = val;
-            return result;
+            skillId = skill.Id;
+            return result && skill.IsValidId;
         }
         #endregion
 
         #region UseSkill
-        public bool UseSkill(string skillName)
+        public bool UseSkill(Skill skill)
         {
             int skillId;
-            if (!GetSkillID(skillName, out skillId))
+            if (!GetSkillID(skill, out skillId))
             {
                 AddToSystemJournal("Error: " + MethodBase.GetCurrentMethod() + " [Unknown skill name]");
                 return false;
@@ -1765,10 +1816,10 @@ namespace StealthAPI
         #endregion
 
         #region ChangeSkillLockState
-        public void ChangeSkillLockState(string skillName, byte skillState)
+        public void ChangeSkillLockState(Skill skill, byte skillState)
         {
             int skillId;
-            if (!GetSkillID(skillName, out skillId))
+            if (!GetSkillID(skill, out skillId))
                 AddToSystemJournal("Error: " + MethodBase.GetCurrentMethod() + " [Unknown skill name]");
             else
                 _client.SendPacket(PacketType.SCChangeSkillLockState, skillId, skillState);
@@ -1776,10 +1827,10 @@ namespace StealthAPI
         #endregion
 
         #region GetSkillCap
-        public double GetSkillCap(string skillName)
+        public double GetSkillCap(Skill skill)
         {
             int skillId;
-            if (!GetSkillID(skillName, out skillId))
+            if (!GetSkillID(skill, out skillId))
             {
                 AddToSystemJournal("Error: " + MethodBase.GetCurrentMethod() + " [Unknown skill name]");
                 return -1;
@@ -1788,10 +1839,10 @@ namespace StealthAPI
         }
         #endregion
         #region GetSkillValue
-        public double GetSkillValue(string skillName)
+        public double GetSkillValue(Skill skill)
         {
             int skillId;
-            if (!GetSkillID(skillName, out skillId))
+            if (!GetSkillID(skill, out skillId))
             {
                 AddToSystemJournal("Error: " + MethodBase.GetCurrentMethod() + " [Unknown skill name]");
                 return -1;
@@ -2893,7 +2944,7 @@ namespace StealthAPI
             }
             return result;
         }
-        
+
         public void SetDress()
         {
             _client.SendPacket(PacketType.SCSetDress);

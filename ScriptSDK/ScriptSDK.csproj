@@ -89,7 +89,6 @@
     <Compile Include="Stealth API\Extensions.cs" />
     <Compile Include="Stealth API\IDeserialized.cs" />
     <Compile Include="Stealth API\Marshaler.cs" />
-    <Compile Include="Stealth API\Model\Character.cs" />
     <Compile Include="Stealth API\Network\DataType.cs" />
     <Compile Include="Stealth API\Network\ExecEventProcData.cs" />
     <Compile Include="Stealth API\Network\Packet.cs" />

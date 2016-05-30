@@ -324,4 +324,28 @@ namespace StealthAPI
         public ushort ItemId { get; private set; }
         public byte FixedDir { get; private set; }
     }
+
+    public class IRCIncomingTextEventArgs : EventArgs
+    {
+        public IRCIncomingTextEventArgs(string text)
+        {
+            Text = text;
+        }
+        public string Text { get; private set; }
+    }
+
+    public class SkypeIncomingTextEventArgs : EventArgs
+    {
+        public SkypeIncomingTextEventArgs(string senderId, string recieverId, string eventMsg, byte eventCode)
+        {
+            SenderId = senderId;
+            RecieverId = recieverId;
+            EventMessage = eventMsg;
+            EventCode = eventCode;
+        }
+        public string SenderId { get; private set; }
+        public string RecieverId { get; private set; }
+        public string EventMessage { get; private set; }
+        public byte EventCode { get; set; }
+    }
 }

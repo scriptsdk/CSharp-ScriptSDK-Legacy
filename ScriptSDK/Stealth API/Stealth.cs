@@ -8,6 +8,8 @@ using System.Threading;
 using System.IO;
 using System.Reflection;
 using System.Media;
+using ScriptSDK.Data;
+
 #pragma warning disable 1591
 
 namespace StealthAPI
@@ -1813,6 +1815,125 @@ namespace StealthAPI
             _client.SendPacket(PacketType.SCUseSkill, skillId);
             return true;
         }
+
+        public bool UseSkill(SkillName ske)
+        {
+            Skill sk = new Skill();
+
+            switch (ske)
+            {
+                case SkillName.Alchemy:
+                    return UseSkill(sk.Alchemy);
+                case SkillName.Anatomy:
+                    return UseSkill(sk.Anatomy);
+                case SkillName.AnimalLore:
+                    return UseSkill(sk.AnimalLore);
+                case SkillName.AnimalTaming:
+                    return UseSkill(sk.AnimalTaming);
+                case SkillName.Archery:
+                    return UseSkill(sk.Archery);
+                case SkillName.ArmsLore:
+                    return UseSkill(sk.Armslore);
+                case SkillName.Begging:
+                    return UseSkill(sk.Begging);
+                case SkillName.Blacksmith:
+                    return UseSkill(sk.Blacksmithy);
+                case SkillName.Bushido:
+                    return UseSkill(sk.Bushido);
+                case SkillName.Camping:
+                    return UseSkill(sk.Camping);
+                case SkillName.Carpentry:
+                    return UseSkill(sk.Carpentry);
+                case SkillName.Cartography:
+                    return UseSkill(sk.Cartography);
+                case SkillName.Chivalry:
+                    return UseSkill(sk.Chivalry);
+                case SkillName.Cooking:
+                    return UseSkill(sk.Cooking);
+                case SkillName.DetectHidden:
+                    return UseSkill(sk.DetectHidden);
+                case SkillName.Discordance:
+                    return UseSkill(sk.Discordance);
+                case SkillName.EvalInt:
+                    return UseSkill(sk.EvaluateIntelligence);
+                case SkillName.Fencing:
+                    return UseSkill(sk.Fencing);
+                case SkillName.Fishing:
+                    return UseSkill(sk.Fishing);
+                case SkillName.Fletching:
+                    return UseSkill(sk.Bowcraft);
+                case SkillName.Focus:
+                    return UseSkill(sk.Focus);
+                case SkillName.Forensics:
+                    return UseSkill(sk.Forensic);
+                case SkillName.Healing:
+                    return UseSkill(sk.Healing);
+                case SkillName.Herding:
+                    return UseSkill(sk.Herding);
+                case SkillName.Hiding:
+                    return UseSkill(sk.Hiding);
+                case SkillName.Imbuing:
+                    return UseSkill(sk.Imbuing);
+                case SkillName.Inscribe:
+                    return UseSkill(sk.Inscription);
+                case SkillName.ItemID:
+                    return UseSkill(sk.ItemIdentification);
+                case SkillName.Lockpicking:
+                    return UseSkill(sk.Lockpicking);
+                case SkillName.Lumberjacking:
+                    return UseSkill(sk.Lumberjacking);
+                case SkillName.Macing:
+                    return UseSkill(sk.MaceFighting);
+                case SkillName.Magery:
+                    return UseSkill(sk.Magery);
+                case SkillName.MagicResist:
+                    return UseSkill(sk.ResistingSpells);
+                case SkillName.Meditation:
+                    return UseSkill(sk.Meditation);
+                case SkillName.Mining:
+                    return UseSkill(sk.Mining);
+                case SkillName.Musicianship:
+                    return UseSkill(sk.Musicianship);
+                case SkillName.Mysticism:
+                    return UseSkill(sk.Mysticism);
+                case SkillName.Necromancy:
+                    return UseSkill(sk.Necromancy);
+                case SkillName.Ninjitsu:
+                    return UseSkill(sk.Ninjitsu);
+                case SkillName.RemoveTrap:
+                    return UseSkill(sk.RemoveTrap);
+                case SkillName.Stealth:
+                    return UseSkill(sk.Stealth);
+                case SkillName.Snooping:
+                    return UseSkill(sk.Snooping);
+                case SkillName.Spellweaving:
+                    return UseSkill(sk.Spellweaving);
+                case SkillName.SpiritSpeak:
+                    return UseSkill(sk.SpiritSpeak);
+                case SkillName.Stealing:
+                    return UseSkill(sk.Stealing);
+                case SkillName.Swords:
+                    return UseSkill(sk.Swordsmanship);
+                case SkillName.Tactics:
+                    return UseSkill(sk.Tactics);
+                case SkillName.Tailoring:
+                    return UseSkill(sk.Tailoring);
+                case SkillName.TasteID:
+                    return UseSkill(sk.TasteIdentification);
+                case SkillName.Throwing:
+                    return UseSkill(sk.Throwing);
+                case SkillName.Tinkering:
+                    return UseSkill(sk.Tinkering);
+                case SkillName.Tracking:
+                    return UseSkill(sk.Tracking);
+                case SkillName.Veterinary:
+                    return UseSkill(sk.Veterinary);
+                case SkillName.Wrestling:
+                    return UseSkill(sk.Wrestling);
+            }
+
+            return false;
+        }
         #endregion
 
         #region ChangeSkillLockState
@@ -1824,9 +1945,299 @@ namespace StealthAPI
             else
                 _client.SendPacket(PacketType.SCChangeSkillLockState, skillId, skillState);
         }
+
+        public void ChangeSkillLockState(SkillName ske, byte skillState)
+        {
+            Skill sk = new Skill();
+
+            switch (ske)
+            {
+                case SkillName.Alchemy:
+                    ChangeSkillLockState(sk.Alchemy, skillState);
+                    break;
+                case SkillName.Anatomy:
+                    ChangeSkillLockState(sk.Anatomy, skillState);
+                    break;
+                case SkillName.AnimalLore:
+                    ChangeSkillLockState(sk.AnimalLore, skillState);
+                    break;
+                case SkillName.AnimalTaming:
+                    ChangeSkillLockState(sk.AnimalTaming, skillState);
+                    break;
+                case SkillName.Archery:
+                    ChangeSkillLockState(sk.Archery, skillState);
+                    break;
+                case SkillName.ArmsLore:
+                    ChangeSkillLockState(sk.Armslore, skillState);
+                    break;
+                case SkillName.Begging:
+                    ChangeSkillLockState(sk.Begging, skillState);
+                    break;
+                case SkillName.Blacksmith:
+                    ChangeSkillLockState(sk.Blacksmithy, skillState);
+                    break;
+                case SkillName.Bushido:
+                    ChangeSkillLockState(sk.Bushido, skillState);
+                    break;
+                case SkillName.Camping:
+                    ChangeSkillLockState(sk.Camping, skillState);
+                    break;
+                case SkillName.Carpentry:
+                    ChangeSkillLockState(sk.Carpentry, skillState);
+                    break;
+                case SkillName.Cartography:
+                    ChangeSkillLockState(sk.Cartography, skillState);
+                    break;
+                case SkillName.Chivalry:
+                    ChangeSkillLockState(sk.Chivalry, skillState);
+                    break;
+                case SkillName.Cooking:
+                    ChangeSkillLockState(sk.Cooking, skillState);
+                    break;
+                case SkillName.DetectHidden:
+                    ChangeSkillLockState(sk.DetectHidden, skillState);
+                    break;
+                case SkillName.Discordance:
+                    ChangeSkillLockState(sk.Discordance, skillState);
+                    break;
+                case SkillName.EvalInt:
+                    ChangeSkillLockState(sk.EvaluateIntelligence, skillState);
+                    break;
+                case SkillName.Fencing:
+                    ChangeSkillLockState(sk.Fencing, skillState);
+                    break;
+                case SkillName.Fishing:
+                    ChangeSkillLockState(sk.Fishing, skillState);
+                    break;
+                case SkillName.Fletching:
+                    ChangeSkillLockState(sk.Bowcraft, skillState);
+                    break;
+                case SkillName.Focus:
+                    ChangeSkillLockState(sk.Focus, skillState);
+                    break;
+                case SkillName.Forensics:
+                    ChangeSkillLockState(sk.Forensic, skillState);
+                    break;
+                case SkillName.Healing:
+                    ChangeSkillLockState(sk.Healing, skillState);
+                    break;
+                case SkillName.Herding:
+                    ChangeSkillLockState(sk.Herding, skillState);
+                    break;
+                case SkillName.Hiding:
+                    ChangeSkillLockState(sk.Hiding, skillState);
+                    break;
+                case SkillName.Imbuing:
+                    ChangeSkillLockState(sk.Imbuing, skillState);
+                    break;
+                case SkillName.Inscribe:
+                    ChangeSkillLockState(sk.Inscription, skillState);
+                    break;
+                case SkillName.ItemID:
+                    ChangeSkillLockState(sk.ItemIdentification, skillState);
+                    break;
+                case SkillName.Lockpicking:
+                    ChangeSkillLockState(sk.Lockpicking, skillState);
+                    break;
+                case SkillName.Lumberjacking:
+                    ChangeSkillLockState(sk.Lumberjacking, skillState);
+                    break;
+                case SkillName.Macing:
+                    ChangeSkillLockState(sk.MaceFighting, skillState);
+                    break;
+                case SkillName.Magery:
+                    ChangeSkillLockState(sk.Magery, skillState);
+                    break;
+                case SkillName.MagicResist:
+                    ChangeSkillLockState(sk.ResistingSpells, skillState);
+                    break;
+                case SkillName.Meditation:
+                    ChangeSkillLockState(sk.Meditation, skillState);
+                    break;
+                case SkillName.Mining:
+                    ChangeSkillLockState(sk.Mining, skillState);
+                    break;
+                case SkillName.Musicianship:
+                    ChangeSkillLockState(sk.Musicianship, skillState);
+                    break;
+                case SkillName.Mysticism:
+                    ChangeSkillLockState(sk.Mysticism, skillState);
+                    break;
+                case SkillName.Necromancy:
+                    ChangeSkillLockState(sk.Necromancy, skillState);
+                    break;
+                case SkillName.Ninjitsu:
+                    ChangeSkillLockState(sk.Ninjitsu, skillState);
+                    break;
+                case SkillName.RemoveTrap:
+                    ChangeSkillLockState(sk.RemoveTrap, skillState);
+                    break;
+                case SkillName.Stealth:
+                    ChangeSkillLockState(sk.Stealth, skillState);
+                    break;
+                case SkillName.Snooping:
+                    ChangeSkillLockState(sk.Snooping, skillState);
+                    break;
+                case SkillName.Spellweaving:
+                    ChangeSkillLockState(sk.Spellweaving, skillState);
+                    break;
+                case SkillName.SpiritSpeak:
+                    ChangeSkillLockState(sk.SpiritSpeak, skillState);
+                    break;
+                case SkillName.Stealing:
+                    ChangeSkillLockState(sk.Stealing, skillState);
+                    break;
+                case SkillName.Swords:
+                    ChangeSkillLockState(sk.Swordsmanship, skillState);
+                    break;
+                case SkillName.Tactics:
+                    ChangeSkillLockState(sk.Tactics, skillState);
+                    break;
+                case SkillName.Tailoring:
+                    ChangeSkillLockState(sk.Tailoring, skillState);
+                    break;
+                case SkillName.TasteID:
+                    ChangeSkillLockState(sk.TasteIdentification, skillState);
+                    break;
+                case SkillName.Throwing:
+                    ChangeSkillLockState(sk.Throwing, skillState);
+                    break;
+                case SkillName.Tinkering:
+                    ChangeSkillLockState(sk.Tinkering, skillState);
+                    break;
+                case SkillName.Tracking:
+                    ChangeSkillLockState(sk.Tracking, skillState);
+                    break;
+                case SkillName.Veterinary:
+                    ChangeSkillLockState(sk.Veterinary, skillState);
+                    break;
+                case SkillName.Wrestling:
+                    ChangeSkillLockState(sk.Wrestling, skillState);
+                    break;
+            }
+        }
         #endregion
 
         #region GetSkillCap
+
+        public double GetSkillCap(SkillName ske)
+        {
+            Skill sk = new Skill();
+
+            switch (ske)
+            {
+                case SkillName.Alchemy:
+                    return GetSkillCap(sk.Alchemy);
+                case SkillName.Anatomy:
+                    return GetSkillCap(sk.Anatomy);
+                case SkillName.AnimalLore:
+                    return GetSkillCap(sk.AnimalLore);
+                case SkillName.AnimalTaming:
+                    return GetSkillCap(sk.AnimalTaming);
+                case SkillName.Archery:
+                    return GetSkillCap(sk.Archery);
+                case SkillName.ArmsLore:
+                    return GetSkillCap(sk.Armslore);
+                case SkillName.Begging:
+                    return GetSkillCap(sk.Begging);
+                case SkillName.Blacksmith:
+                    return GetSkillCap(sk.Blacksmithy);
+                case SkillName.Bushido:
+                    return GetSkillCap(sk.Bushido);
+                case SkillName.Camping:
+                    return GetSkillCap(sk.Camping);
+                case SkillName.Carpentry:
+                    return GetSkillCap(sk.Carpentry);
+                case SkillName.Cartography:
+                    return GetSkillCap(sk.Cartography);
+                case SkillName.Chivalry:
+                    return GetSkillCap(sk.Chivalry);
+                case SkillName.Cooking:
+                    return GetSkillCap(sk.Cooking);
+                case SkillName.DetectHidden:
+                    return GetSkillCap(sk.DetectHidden);
+                case SkillName.Discordance:
+                    return GetSkillCap(sk.Discordance);
+                case SkillName.EvalInt:
+                    return GetSkillCap(sk.EvaluateIntelligence);
+                case SkillName.Fencing:
+                    return GetSkillCap(sk.Fencing);
+                case SkillName.Fishing:
+                    return GetSkillCap(sk.Fishing);
+                case SkillName.Fletching:
+                    return GetSkillCap(sk.Bowcraft);
+                case SkillName.Focus:
+                    return GetSkillCap(sk.Focus);
+                case SkillName.Forensics:
+                    return GetSkillCap(sk.Forensic);
+                case SkillName.Healing:
+                    return GetSkillCap(sk.Healing);
+                case SkillName.Herding:
+                    return GetSkillCap(sk.Herding);
+                case SkillName.Hiding:
+                    return GetSkillCap(sk.Hiding);
+                case SkillName.Imbuing:
+                    return GetSkillCap(sk.Imbuing);
+                case SkillName.Inscribe:
+                    return GetSkillCap(sk.Inscription);
+                case SkillName.ItemID:
+                    return GetSkillCap(sk.ItemIdentification);
+                case SkillName.Lockpicking:
+                    return GetSkillCap(sk.Lockpicking);
+                case SkillName.Lumberjacking:
+                    return GetSkillCap(sk.Lumberjacking);
+                case SkillName.Macing:
+                    return GetSkillCap(sk.MaceFighting);
+                case SkillName.Magery:
+                    return GetSkillCap(sk.Magery);
+                case SkillName.MagicResist:
+                    return GetSkillCap(sk.ResistingSpells);
+                case SkillName.Meditation:
+                    return GetSkillCap(sk.Meditation);
+                case SkillName.Mining:
+                    return GetSkillCap(sk.Mining);
+                case SkillName.Musicianship:
+                    return GetSkillCap(sk.Musicianship);
+                case SkillName.Mysticism:
+                    return GetSkillCap(sk.Mysticism);
+                case SkillName.Necromancy:
+                    return GetSkillCap(sk.Necromancy);
+                case SkillName.Ninjitsu:
+                    return GetSkillCap(sk.Ninjitsu);
+                case SkillName.RemoveTrap:
+                    return GetSkillCap(sk.RemoveTrap);
+                case SkillName.Stealth:
+                    return GetSkillCap(sk.Stealth);
+                case SkillName.Snooping:
+                    return GetSkillCap(sk.Snooping);
+                case SkillName.Spellweaving:
+                    return GetSkillCap(sk.Spellweaving);
+                case SkillName.SpiritSpeak:
+                    return GetSkillCap(sk.SpiritSpeak);
+                case SkillName.Stealing:
+                    return GetSkillCap(sk.Stealing);
+                case SkillName.Swords:
+                    return GetSkillCap(sk.Swordsmanship);
+                case SkillName.Tactics:
+                    return GetSkillCap(sk.Tactics);
+                case SkillName.Tailoring:
+                    return GetSkillCap(sk.Tailoring);
+                case SkillName.TasteID:
+                    return GetSkillCap(sk.TasteIdentification);
+                case SkillName.Throwing:
+                    return GetSkillCap(sk.Throwing);
+                case SkillName.Tinkering:
+                    return GetSkillCap(sk.Tinkering);
+                case SkillName.Tracking:
+                    return GetSkillCap(sk.Tracking);
+                case SkillName.Veterinary:
+                    return GetSkillCap(sk.Veterinary);
+                case SkillName.Wrestling:
+                    return GetSkillCap(sk.Wrestling);
+            }
+            return 0.0;
+        }
+
         public double GetSkillCap(Skill skill)
         {
             int skillId;
@@ -1837,7 +2248,9 @@ namespace StealthAPI
             }
             return _client.SendPacket<double>(PacketType.SCGetSkillCap, skillId);
         }
+
         #endregion
+
         #region GetSkillValue
         public double GetSkillValue(Skill skill)
         {
@@ -1848,6 +2261,124 @@ namespace StealthAPI
                 return -1;
             }
             return _client.SendPacket<double>(PacketType.SCSkillValue, skillId);
+        }
+
+        public double GetSkillValue(SkillName ske)
+        {
+            Skill sk = new Skill();
+
+            switch (ske)
+            {
+                case SkillName.Alchemy:
+                    return GetSkillValue(sk.Alchemy);
+                case SkillName.Anatomy:
+                    return GetSkillValue(sk.Anatomy);
+                case SkillName.AnimalLore:
+                    return GetSkillValue(sk.AnimalLore);
+                case SkillName.AnimalTaming:
+                    return GetSkillValue(sk.AnimalTaming);
+                case SkillName.Archery:
+                    return GetSkillValue(sk.Archery);
+                case SkillName.ArmsLore:
+                    return GetSkillValue(sk.Armslore);
+                case SkillName.Begging:
+                    return GetSkillValue(sk.Begging);
+                case SkillName.Blacksmith:
+                    return GetSkillValue(sk.Blacksmithy);
+                case SkillName.Bushido:
+                    return GetSkillValue(sk.Bushido);
+                case SkillName.Camping:
+                    return GetSkillValue(sk.Camping);
+                case SkillName.Carpentry:
+                    return GetSkillValue(sk.Carpentry);
+                case SkillName.Cartography:
+                    return GetSkillValue(sk.Cartography);
+                case SkillName.Chivalry:
+                    return GetSkillValue(sk.Chivalry);
+                case SkillName.Cooking:
+                    return GetSkillValue(sk.Cooking);
+                case SkillName.DetectHidden:
+                    return GetSkillValue(sk.DetectHidden);
+                case SkillName.Discordance:
+                    return GetSkillValue(sk.Discordance);
+                case SkillName.EvalInt:
+                    return GetSkillValue(sk.EvaluateIntelligence);
+                case SkillName.Fencing:
+                    return GetSkillValue(sk.Fencing);
+                case SkillName.Fishing:
+                    return GetSkillValue(sk.Fishing);
+                case SkillName.Fletching:
+                    return GetSkillValue(sk.Bowcraft);
+                case SkillName.Focus:
+                    return GetSkillValue(sk.Focus);
+                case SkillName.Forensics:
+                    return GetSkillValue(sk.Forensic);
+                case SkillName.Healing:
+                    return GetSkillValue(sk.Healing);
+                case SkillName.Herding:
+                    return GetSkillValue(sk.Herding);
+                case SkillName.Hiding:
+                    return GetSkillValue(sk.Hiding);
+                case SkillName.Imbuing:
+                    return GetSkillValue(sk.Imbuing);
+                case SkillName.Inscribe:
+                    return GetSkillValue(sk.Inscription);
+                case SkillName.ItemID:
+                    return GetSkillValue(sk.ItemIdentification);
+                case SkillName.Lockpicking:
+                    return GetSkillValue(sk.Lockpicking);
+                case SkillName.Lumberjacking:
+                    return GetSkillValue(sk.Lumberjacking);
+                case SkillName.Macing:
+                    return GetSkillValue(sk.MaceFighting);
+                case SkillName.Magery:
+                    return GetSkillValue(sk.Magery);
+                case SkillName.MagicResist:
+                    return GetSkillValue(sk.ResistingSpells);
+                case SkillName.Meditation:
+                    return GetSkillValue(sk.Meditation);
+                case SkillName.Mining:
+                    return GetSkillValue(sk.Mining);
+                case SkillName.Musicianship:
+                    return GetSkillValue(sk.Musicianship);
+                case SkillName.Mysticism:
+                    return GetSkillValue(sk.Mysticism);
+                case SkillName.Necromancy:
+                    return GetSkillValue(sk.Necromancy);
+                case SkillName.Ninjitsu:
+                    return GetSkillValue(sk.Ninjitsu);
+                case SkillName.RemoveTrap:
+                    return GetSkillValue(sk.RemoveTrap);
+                case SkillName.Stealth:
+                    return GetSkillValue(sk.Stealth);
+                case SkillName.Snooping:
+                    return GetSkillValue(sk.Snooping);
+                case SkillName.Spellweaving:
+                    return GetSkillValue(sk.Spellweaving);
+                case SkillName.SpiritSpeak:
+                    return GetSkillValue(sk.SpiritSpeak);
+                case SkillName.Stealing:
+                    return GetSkillValue(sk.Stealing);
+                case SkillName.Swords:
+                    return GetSkillValue(sk.Swordsmanship);
+                case SkillName.Tactics:
+                    return GetSkillValue(sk.Tactics);
+                case SkillName.Tailoring:
+                    return GetSkillValue(sk.Tailoring);
+                case SkillName.TasteID:
+                    return GetSkillValue(sk.TasteIdentification);
+                case SkillName.Throwing:
+                    return GetSkillValue(sk.Throwing);
+                case SkillName.Tinkering:
+                    return GetSkillValue(sk.Tinkering);
+                case SkillName.Tracking:
+                    return GetSkillValue(sk.Tracking);
+                case SkillName.Veterinary:
+                    return GetSkillValue(sk.Veterinary);
+                case SkillName.Wrestling:
+                    return GetSkillValue(sk.Wrestling);
+            }
+            return 0.0;
         }
         #endregion
         #endregion

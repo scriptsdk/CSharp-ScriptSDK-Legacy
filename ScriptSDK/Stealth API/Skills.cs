@@ -40,6 +40,7 @@ namespace StealthAPI
         public readonly Skill Hiding = new Skill() { Value = "Hiding" };
         public readonly Skill Inscription = new Skill() { Value = "Inscription" };
         public readonly Skill ItemIdentification = new Skill() { Value = "Item Identification" };
+        public readonly Skill Imbuing = new Skill() { Value = "Imbuing" };
         public readonly Skill Lockpicking = new Skill() { Value = "Lockpicking" };
         public readonly Skill Lumberjacking = new Skill() { Value = "Lumberjacking" };
         public readonly Skill MaceFighting = new Skill() { Value = "Mace Fighting" };
@@ -47,6 +48,7 @@ namespace StealthAPI
         public readonly Skill Meditation = new Skill() { Value = "Meditation" };
         public readonly Skill Mining = new Skill() { Value = "Mining" };
         public readonly Skill Musicianship = new Skill() { Value = "Musicianship" };
+        public readonly Skill Mysticism = new Skill() { Value = "Mysticism" };
         public readonly Skill Necromancy = new Skill() { Value = "Necromancy" };
         public readonly Skill Ninjitsu = new Skill() { Value = "Ninjitsu" };
         public readonly Skill Parrying = new Skill() { Value = "Parrying" };
@@ -65,6 +67,7 @@ namespace StealthAPI
         public readonly Skill Tailoring = new Skill() { Value = "Tailoring" };
         public readonly Skill TasteIdentification = new Skill() { Value = "Taste Identification" };
         public readonly Skill Tinkering = new Skill() { Value = "Tinkering" };
+        public readonly Skill Throwing = new Skill() { Value = "Throwing" };
         public readonly Skill Tracking = new Skill() { Value = "Tracking" };
         public readonly Skill Veterinary = new Skill() { Value = "Veterinary" };
         public readonly Skill Wrestling = new Skill() { Value = "Wrestling" };

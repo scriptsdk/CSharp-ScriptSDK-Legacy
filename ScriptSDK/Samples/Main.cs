@@ -4,6 +4,7 @@ using ScriptSDK.Engines;
 using ScriptSDK.Items;
 using ScriptSDK.Mobiles;
 using ScriptSDK.Targets;
+using ScriptSDK.Gumps;
 
 namespace ScriptSDK
 {
@@ -31,13 +32,16 @@ namespace ScriptSDK
         [STAThread]
         static void Main()
         {
-            var p = PlayerMobile.GetPlayer();
-            while (!p.Skills.Healing.Value.Equals(100.0))
-                p.Salute();
+            //var p = PlayerMobile.GetPlayer();
+            //while (!p.Skills.Healing.Value.Equals(100.0))
+            //    p.Salute();
 
-            List<Mobile> list = Scanner.Find<Mobile>(0x23E, 0xFFFF, 0x0, true);
+            //List<Mobile> list = Scanner.Find<Mobile>(0x23E, 0xFFFF, 0x0, true);
 
             Console.WriteLine("Hello World");
+
+            var gumps = Gump.ActiveGumps;
+            Console.WriteLine($"Gumps count {gumps.Count}");
             Console.ReadKey();
         }
     }

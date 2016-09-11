@@ -9,6 +9,6 @@ namespace StealthAPI
 
         public ushort X;
         public ushort Y;
-        public byte Z;
+        public sbyte Z;
     }
 }

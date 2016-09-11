@@ -299,6 +299,10 @@ namespace StealthAPI
                                     itemCount = barray[0];
                                     barray = barray.Skip(1).ToArray();
                                     break;
+                                case PacketType.SCGetPathArray:
+                                case PacketType.SCGetPathArray3D:
+                                    itemCount = barray[0];
+                                    break;
                                 default:
                                     itemCount = BitConverter.ToUInt32(barray, 0);
                                     barray = barray.Skip(4).ToArray();

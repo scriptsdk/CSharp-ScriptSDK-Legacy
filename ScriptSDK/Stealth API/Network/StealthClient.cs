@@ -70,25 +70,26 @@ namespace StealthAPI
 
         private void Receiver(object state)
         {
-            var token = (CancellationToken) state;
+            var token = (CancellationToken)state;
 
             while (!token.IsCancellationRequested)
             {
-                if (_reader != null && _reader.BaseStream.CanRead && ((NetworkStream) _reader.BaseStream).DataAvailable)
+                if (_reader != null && _reader.BaseStream.CanRead && ((NetworkStream)_reader.BaseStream).DataAvailable)
                 {
-                    while (((NetworkStream) _reader.BaseStream).DataAvailable)
+                    while (((NetworkStream)_reader.BaseStream).DataAvailable)
                     {
                         var packetLen = BitConverter.ToUInt32(_reader.ReadBytes(4), 0);
 
                         var packet = new Packet();
-                        packet.Method = (PacketType) _reader.ReadUInt16();
+                        packet.Method = (PacketType)_reader.ReadUInt16();
                         packet.DataLength = _reader.ReadInt16();
                         packet.Data = _reader.ReadBytes(packet.DataLength);
 
-                        Stealth.AddTraceMessage(string.Format("Read packet. Type: {0}, Param: {1}",
-                            packet.Method,
-                            string.Join(",", packet.Data.Select(b => b.ToString("X2")))),
-                            "Stealth.Network");
+                        if (Stealth.EnableTracing)
+                            Stealth.AddTraceMessage(string.Format("Read packet. Type: {0}, Param: {1}",
+                                packet.Method,
+                                string.Join(",", packet.Data.Select(b => b.ToString("X2")))),
+                                "Stealth.Network");
 
                         ProcessPacket(packet);
                     }
@@ -120,7 +121,7 @@ namespace StealthAPI
 
                 case PacketType.SCExecEventProc:
                     var eventCode = packet.Data[0];
-                    var eventType = (EventTypes) packet.Data[1];
+                    var eventType = (EventTypes)packet.Data[1];
 
 
                     var parameters = new ArrayList();
@@ -131,7 +132,7 @@ namespace StealthAPI
                         {
                             var type = reader.ReadByte();
                             var size = reader.ReadUInt16();
-                            switch ((DataType) type)
+                            switch ((DataType)type)
                             {
                                 case DataType.parUnicodeString:
                                     parameters.Add(Encoding.Unicode.GetString(reader.ReadBytes(size)));
@@ -160,7 +161,7 @@ namespace StealthAPI
                     new Task(() => OnServerEventRecieve(data)).Start();
                     break;
                 default:
-                    throw new Exception("Recieve unknown packet. ID: " + (ushort) packet.Method);
+                    throw new Exception("Recieve unknown packet. ID: " + (ushort)packet.Method);
             }
         }
 
@@ -190,7 +191,8 @@ namespace StealthAPI
             while (_writer == null || !_writer.BaseStream.CanWrite)
                 Thread.Sleep(10);
 
-            Stealth.AddTraceMessage(string.Format("Send packet. Type: {0}, Param: {1}",
+            if (Stealth.EnableTracing)
+                Stealth.AddTraceMessage(string.Format("Send packet. Type: {0}, Param: {1}",
                 packet.Method,
                 string.Join(",", packet.Data.Select(b => b.ToString("X2")))),
                 "Stealth.Network");
@@ -205,12 +207,12 @@ namespace StealthAPI
         {
             lock (this)
             {
-                var packet = new Packet {Method = packetType};
+                var packet = new Packet { Method = packetType };
                 foreach (var p in parameters)
                 {
                     packet.AddParameter(p);
                 }
-                packet.DataLength = (short) packet.Data.Length;
+                packet.DataLength = (short)packet.Data.Length;
                 SendPacket(packet);
             }
         }
@@ -219,11 +221,11 @@ namespace StealthAPI
         {
             lock (this)
             {
-                var packet = new Packet {Method = packetType};
+                var packet = new Packet { Method = packetType };
                 foreach (var p in parameters)
                     packet.AddParameter(p);
 
-                packet.DataLength = (short) packet.Data.Length;
+                packet.DataLength = (short)packet.Data.Length;
                 SendPacket(packet);
                 return WaitReply<T>(packetType);
             }
@@ -240,40 +242,40 @@ namespace StealthAPI
             {
                 packet = _replyes.Dequeue();
                 replyMethod = BitConverter.ToUInt16(packet.Data, 0);
-            } while (replyMethod != (ushort) type);
-            if (typeof (T).IsValueType && Type.GetTypeCode(typeof (T)) != TypeCode.DateTime)
+            } while (replyMethod != (ushort)type);
+            if (typeof(T).IsValueType && Type.GetTypeCode(typeof(T)) != TypeCode.DateTime)
                 return packet.Data.Skip(2).ToArray().MarshalToObject<T>();
-            switch (Type.GetTypeCode(typeof (T)))
+            switch (Type.GetTypeCode(typeof(T)))
             {
                 case TypeCode.String:
-                {
-                    var len = BitConverter.ToUInt32(packet.Data, 2);
-                    return (T) (object) Encoding.Unicode.GetString(packet.Data.Skip(6).ToArray());
-                }
-                case TypeCode.DateTime:
-                    return (T) (object) BitConverter.ToDouble(packet.Data, 2).ToDateTime();
-                default:
-                    if (typeof (T).IsArray)
                     {
-                        var elementType = typeof (T).GetElementType();
+                        var len = BitConverter.ToUInt32(packet.Data, 2);
+                        return (T)(object)Encoding.Unicode.GetString(packet.Data.Skip(6).ToArray());
+                    }
+                case TypeCode.DateTime:
+                    return (T)(object)BitConverter.ToDouble(packet.Data, 2).ToDateTime();
+                default:
+                    if (typeof(T).IsArray)
+                    {
+                        var elementType = typeof(T).GetElementType();
                         var barray = packet.Data.Skip(2).ToArray();
                         if (barray == null || barray.Length == 0)
                             return default(T);
-                        var uarray = (T) Activator.CreateInstance(typeof (T), barray.Length/Marshal.SizeOf(elementType));
+                        var uarray = (T)Activator.CreateInstance(typeof(T), barray.Length / Marshal.SizeOf(elementType));
                         Buffer.BlockCopy(barray, 0, uarray as Array, 0, barray.Length);
                         return uarray;
                     }
-                    if (typeof (T).IsGenericType && typeof (T).GetInterfaces().Any(i => i == typeof (IList)))
+                    if (typeof(T).IsGenericType && typeof(T).GetInterfaces().Any(i => i == typeof(IList)))
                     {
                         var barray = packet.Data.Skip(2).ToArray();
                         var result = Activator.CreateInstance<T>();
-                        var elementType = typeof (T).GetGenericArguments()[0];
+                        var elementType = typeof(T).GetGenericArguments()[0];
 
                         if (barray == null || barray.Length == 0)
-                            return (T) Activator.CreateInstance(typeof (T));
+                            return (T)Activator.CreateInstance(typeof(T));
                         if (elementType.IsPrimitive)
                         {
-                            var uarray = Array.CreateInstance(elementType, barray.Length/Marshal.SizeOf(elementType));
+                            var uarray = Array.CreateInstance(elementType, barray.Length / Marshal.SizeOf(elementType));
                             Buffer.BlockCopy(barray, 0, uarray, 0, barray.Length);
 
                             foreach (var item in uarray)
@@ -309,7 +311,7 @@ namespace StealthAPI
                                     break;
                             }
 
-                            if (elementType.GetInterfaces().Any(intf => intf == typeof (IDeserialized)))
+                            if (elementType.GetInterfaces().Any(intf => intf == typeof(IDeserialized)))
                             {
                                 using (var str = new MemoryStream(barray))
                                 using (var br = new BinaryReader(str))
@@ -336,7 +338,7 @@ namespace StealthAPI
                         }
                         return result;
                     }
-                    throw new InvalidOperationException(string.Format("Type '{0}' not supported.", typeof (T)));
+                    throw new InvalidOperationException(string.Format("Type '{0}' not supported.", typeof(T)));
             }
         }
     }

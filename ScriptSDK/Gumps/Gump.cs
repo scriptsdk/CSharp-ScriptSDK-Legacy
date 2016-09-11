@@ -348,15 +348,16 @@ namespace ScriptSDK.Gumps
         {
             get
             {
-                var c = Count;
-                var info = new List<Gump>();
+                uint c = Count;
+                List<Gump> info = new List<Gump>();
                 for (var a = 0; a < c; a++)
                 {
-                    var ID = Stealth.Client.GetGumpID((ushort) a);
+                    //uint serial = Stealth.Client.GetGumpSerial((ushort) a);
 
-                    var t = GetGump(ID);
-                    if ((t != null) && (t.Serial.Value > 0))
-                        info.Add(t);
+                    //Gump t = GetGump(serial);
+                    //if ((t != null) && (t.Serial.Value > 0))
+                    //    info.Add(t);
+                    info.Add(new Gump(Stealth.Client.GetGumpInfo((ushort)a)));
                 }
                 return info;
             }

@@ -30,7 +30,9 @@ namespace ScriptSDK.Gumps
             Size = new Size(c.Height, c.Width);
             Color = c.Color;
             TextID = c.DefaultTextId;
-            Text = Owner.RawText.Count > TextID ? Owner.RawText[TextID] : string.Empty;
+            //Text = Owner.RawText.Count > TextID ? Owner.RawText[TextID] : string.Empty;
+            //Drabadan edit, due to Text setter sends useless api call to stealth, so using private value in ctor;
+            _text = Owner.RawText.Count > TextID ? Owner.RawText[TextID] : string.Empty;
             Limit = -1;
             Page = c.Page;
             ElementID = c.ElemNum;
@@ -44,7 +46,9 @@ namespace ScriptSDK.Gumps
             Size = new Size(c.Height, c.Width);
             Color = c.Color;
             TextID = c.DefaultTextId;
-            Text = Owner.RawText.Count > TextID ? Owner.RawText[TextID] : string.Empty;
+            //Text = Owner.RawText.Count > TextID ? Owner.RawText[TextID] : string.Empty;
+            //Drabadan edit, due to Text setter sends useless api call to stealth, so using private value in ctor;
+            _text = Owner.RawText.Count > TextID ? Owner.RawText[TextID] : string.Empty;
             Limit = c.Limit;
             Page = c.Page;
             ElementID = c.ElemNum;

@@ -5,6 +5,7 @@ using ScriptSDK.Items;
 using ScriptSDK.Mobiles;
 using ScriptSDK.Targets;
 using ScriptSDK.Gumps;
+using StealthAPI;
 
 namespace ScriptSDK
 {
@@ -40,9 +41,18 @@ namespace ScriptSDK
 
             Console.WriteLine("Hello World");
 
-            var gumps = Gump.ActiveGumps;
-            Console.WriteLine($"Gumps count {gumps.Count}");
+            GumpTextEntrySetterSendsEmptyStringTest();
             Console.ReadKey();
+        }
+
+        private static Stealth _stealth = Stealth.Client;
+        private static void GumpTextEntrySetterSendsEmptyStringTest()
+        {
+            _stealth.IncomingGump += (sender, e) => {
+                Gump g = Gump.GetGump(e.GumpId);
+
+                Console.WriteLine($"{g?.TextEdits.Count}");
+            };
         }
     }
 #pragma warning restore 1591

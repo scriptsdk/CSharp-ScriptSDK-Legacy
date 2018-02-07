@@ -19,7 +19,7 @@ namespace StealthAPI
         /// <summary>
         /// Connect timeout. Default 1 minute
         /// </summary>
-        public static TimeSpan StealthAttachTimeout = new TimeSpan(0,1,0);
+        public static TimeSpan StealthAttachTimeout = new TimeSpan(0, 1, 0);
         public static bool EnableTracing { get; set; }
 
         public static void AddTraceMessage(object o, string s)
@@ -1432,10 +1432,16 @@ namespace StealthAPI
         #endregion
 
         #region Profile name
-        public int ChangeProfile(string name)
+        public int ChangeProfile(string profileName)
         {
-            return _client.SendPacket<int>(PacketType.SCChangeProfile, name);
+            return _client.SendPacket<int>(PacketType.SCChangeProfile, profileName);
         }
+
+        public int ChangeProfile(string profileName, string shardName, string charName)
+        {
+            return _client.SendPacket<int>(PacketType.SCChangeProfileEx, profileName, shardName, charName);
+        }
+
         public string ProfileName()
         {
             return _client.SendPacket<string>(PacketType.SCGetProfileName);
@@ -1798,8 +1804,6 @@ namespace StealthAPI
         #region GetSkillID
         public bool GetSkillID(Skill skill, out int skillId)
         {
-            bool result = false;
-
             if (!skill.IsValidId)
                 skill.Id = _client.SendPacket<int>(PacketType.SCGetSkillID, skill.Value);
 
@@ -2381,6 +2385,135 @@ namespace StealthAPI
                     return GetSkillValue(Skill.Veterinary);
                 case SkillName.Wrestling:
                     return GetSkillValue(Skill.Wrestling);
+            }
+            return 0.0;
+        }
+
+        public double GetSkillCurrentValue(Skill skill)
+        {
+            int skillId;
+            if (!GetSkillID(skill, out skillId))
+            {
+                AddToSystemJournal("Error: " + MethodBase.GetCurrentMethod() + " [Unknown skill name]");
+                return -1;
+            }
+            return _client.SendPacket<double>(PacketType.SCSkillCurrentValue, skillId);
+        }
+
+        public double GetSkillCurrentValue(SkillName ske)
+        {
+            Skill sk = new Skill();
+
+            switch (ske)
+            {
+                case SkillName.Alchemy:
+                    return GetSkillCurrentValue(Skill.Alchemy);
+                case SkillName.Anatomy:
+                    return GetSkillCurrentValue(Skill.Anatomy);
+                case SkillName.AnimalLore:
+                    return GetSkillCurrentValue(Skill.AnimalLore);
+                case SkillName.AnimalTaming:
+                    return GetSkillCurrentValue(Skill.AnimalTaming);
+                case SkillName.Archery:
+                    return GetSkillCurrentValue(Skill.Archery);
+                case SkillName.ArmsLore:
+                    return GetSkillCurrentValue(Skill.Armslore);
+                case SkillName.Begging:
+                    return GetSkillCurrentValue(Skill.Begging);
+                case SkillName.Blacksmith:
+                    return GetSkillCurrentValue(Skill.Blacksmithy);
+                case SkillName.Bushido:
+                    return GetSkillCurrentValue(Skill.Bushido);
+                case SkillName.Camping:
+                    return GetSkillCurrentValue(Skill.Camping);
+                case SkillName.Carpentry:
+                    return GetSkillCurrentValue(Skill.Carpentry);
+                case SkillName.Cartography:
+                    return GetSkillCurrentValue(Skill.Cartography);
+                case SkillName.Chivalry:
+                    return GetSkillCurrentValue(Skill.Chivalry);
+                case SkillName.Cooking:
+                    return GetSkillCurrentValue(Skill.Cooking);
+                case SkillName.DetectHidden:
+                    return GetSkillCurrentValue(Skill.DetectHidden);
+                case SkillName.Discordance:
+                    return GetSkillCurrentValue(Skill.Discordance);
+                case SkillName.EvalInt:
+                    return GetSkillCurrentValue(Skill.EvaluateIntelligence);
+                case SkillName.Fencing:
+                    return GetSkillCurrentValue(Skill.Fencing);
+                case SkillName.Fishing:
+                    return GetSkillCurrentValue(Skill.Fishing);
+                case SkillName.Fletching:
+                    return GetSkillCurrentValue(Skill.Bowcraft);
+                case SkillName.Focus:
+                    return GetSkillCurrentValue(Skill.Focus);
+                case SkillName.Forensics:
+                    return GetSkillCurrentValue(Skill.Forensic);
+                case SkillName.Healing:
+                    return GetSkillCurrentValue(Skill.Healing);
+                case SkillName.Herding:
+                    return GetSkillCurrentValue(Skill.Herding);
+                case SkillName.Hiding:
+                    return GetSkillCurrentValue(Skill.Hiding);
+                case SkillName.Imbuing:
+                    return GetSkillCurrentValue(Skill.Imbuing);
+                case SkillName.Inscribe:
+                    return GetSkillCurrentValue(Skill.Inscription);
+                case SkillName.ItemID:
+                    return GetSkillCurrentValue(Skill.ItemIdentification);
+                case SkillName.Lockpicking:
+                    return GetSkillCurrentValue(Skill.Lockpicking);
+                case SkillName.Lumberjacking:
+                    return GetSkillCurrentValue(Skill.Lumberjacking);
+                case SkillName.Macing:
+                    return GetSkillCurrentValue(Skill.MaceFighting);
+                case SkillName.Magery:
+                    return GetSkillCurrentValue(Skill.Magery);
+                case SkillName.MagicResist:
+                    return GetSkillCurrentValue(Skill.ResistingSpells);
+                case SkillName.Meditation:
+                    return GetSkillCurrentValue(Skill.Meditation);
+                case SkillName.Mining:
+                    return GetSkillCurrentValue(Skill.Mining);
+                case SkillName.Musicianship:
+                    return GetSkillCurrentValue(Skill.Musicianship);
+                case SkillName.Mysticism:
+                    return GetSkillCurrentValue(Skill.Mysticism);
+                case SkillName.Necromancy:
+                    return GetSkillCurrentValue(Skill.Necromancy);
+                case SkillName.Ninjitsu:
+                    return GetSkillCurrentValue(Skill.Ninjitsu);
+                case SkillName.RemoveTrap:
+                    return GetSkillCurrentValue(Skill.RemoveTrap);
+                case SkillName.Stealth:
+                    return GetSkillCurrentValue(Skill.Stealth);
+                case SkillName.Snooping:
+                    return GetSkillCurrentValue(Skill.Snooping);
+                case SkillName.Spellweaving:
+                    return GetSkillCurrentValue(Skill.Spellweaving);
+                case SkillName.SpiritSpeak:
+                    return GetSkillCurrentValue(Skill.SpiritSpeak);
+                case SkillName.Stealing:
+                    return GetSkillCurrentValue(Skill.Stealing);
+                case SkillName.Swords:
+                    return GetSkillCurrentValue(Skill.Swordsmanship);
+                case SkillName.Tactics:
+                    return GetSkillCurrentValue(Skill.Tactics);
+                case SkillName.Tailoring:
+                    return GetSkillCurrentValue(Skill.Tailoring);
+                case SkillName.TasteID:
+                    return GetSkillCurrentValue(Skill.TasteIdentification);
+                case SkillName.Throwing:
+                    return GetSkillCurrentValue(Skill.Throwing);
+                case SkillName.Tinkering:
+                    return GetSkillCurrentValue(Skill.Tinkering);
+                case SkillName.Tracking:
+                    return GetSkillCurrentValue(Skill.Tracking);
+                case SkillName.Veterinary:
+                    return GetSkillCurrentValue(Skill.Veterinary);
+                case SkillName.Wrestling:
+                    return GetSkillCurrentValue(Skill.Wrestling);
             }
             return 0.0;
         }
@@ -3880,6 +4013,11 @@ namespace StealthAPI
         #endregion
 
         #region tile Working
+        public TileDataFlags ConvertIntegerToFlags(byte group, int flags)
+        {
+            return _client.SendPacket<TileDataFlags>(PacketType.SCConvertIntegerToFlags, group, flags);
+        }
+
         public uint GetTileFlags(TileFlagsType tileGroup, ushort tile)
         {
             return _client.SendPacket<uint>(PacketType.SCGetTileFlags, tileGroup, tile);
@@ -4183,11 +4321,33 @@ namespace StealthAPI
         {
             return _client.SendPacket<int>(PacketType.SCGetMoveThroughNPC);
         }
+
+        public void SetMoveThroughCorner(bool moveThrougCorner)
+        {
+            _client.SendPacket(PacketType.SCSetMoveThroughCorner, moveThrougCorner);
+        }
+
+        public bool GetMoveThroughCorner()
+        {
+            return _client.SendPacket<bool>(PacketType.SCGetMoveThroughCorner);
+        }
+
+        public void SetMoveHeuristicMult(int moveHeuristicMult)
+        {
+            _client.SendPacket(PacketType.SCSetMoveHeuristicMult, moveHeuristicMult);
+        }
+
+        public int GetMoveHeuristicMult()
+        {
+            return _client.SendPacket<int>(PacketType.SCGetMoveHeuristicMult);
+        }
+
         public void ClearSystemJournal()
         {
             _client.SendPacket(PacketType.SCClearSystemJournal);
         }
         #endregion
+
     }
 
 }

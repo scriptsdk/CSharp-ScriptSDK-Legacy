@@ -43,7 +43,7 @@ namespace ScriptSDK.Attributes
         /// </summary>
         public virtual double Cap
         {
-            get { return Stealth.Client.GetSkillCap(Name); }
+            get { return Stealth.Client.GetSkillCap(SkillName); }
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace ScriptSDK.Attributes
         /// </summary>
         public virtual double Value
         {
-            get { return Stealth.Client.GetSkillValue(Name); }
+            get { return Stealth.Client.GetSkillValue(SkillName); }
         }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace ScriptSDK.Attributes
             set
             {
                 _lock = value;
-                Stealth.Client.ChangeSkillLockState(Name, (byte) value);
+                Stealth.Client.ChangeSkillLockState(SkillName, (byte) value);
             }
         }
 

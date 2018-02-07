@@ -47,7 +47,7 @@ namespace ScriptSDK.Attributes
         /// <returns></returns>
         public bool Use()
         {
-            var state = Useable && Stealth.Client.UseSkill(Name);
+            var state = Useable && Stealth.Client.UseSkill(SkillName);
             var e = new SkillEventArgs {Skill = this, State = state};
             return Use(e);
         }

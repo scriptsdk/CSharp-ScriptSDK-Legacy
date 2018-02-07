@@ -29,17 +29,17 @@ namespace ScriptSDK
         /// <summary>
         ///  Stores actual release build as text
         /// </summary>
-        public const string Revision = "0.9.5";
+        public const string Revision = "0.9.7";
 
         /// <summary>
         /// Stores timestamp of last success release build.
         /// </summary>
-        public const string BuildDate = @"14.02.2016";
+        public const string BuildDate = @"05.06.2016";
 
         /// <summary>
         /// Stores text about stealth and API compability.
         /// </summary>
-        public const string CompatibleClient = @"Stealth 6.7.1 Rev 926 or above";
+        public const string CompatibleClient = @"Stealth 7.4 Rev 967 or above";
 
         /// <summary>
         /// SDK initializer which should be called one time only on first script call.

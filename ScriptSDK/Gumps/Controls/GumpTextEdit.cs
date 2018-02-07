@@ -30,10 +30,13 @@ namespace ScriptSDK.Gumps
             Size = new Size(c.Height, c.Width);
             Color = c.Color;
             TextID = c.DefaultTextId;
-            Text = Owner.RawText.Count > TextID ? Owner.RawText[TextID] : string.Empty;
+            //Text = Owner.RawText.Count > TextID ? Owner.RawText[TextID] : string.Empty;
+            //Drabadan edit, due to Text setter sends useless api call to stealth, so using private value in ctor;
+            _text = Owner.RawText.Count > TextID ? Owner.RawText[TextID] : string.Empty;
             Limit = -1;
             Page = c.Page;
             ElementID = c.ElemNum;
+            ReturnValue = c.ReturnValue;
         }
 
         internal GumpTextEdit(Gump owner, TextEntryLimited c)
@@ -44,10 +47,13 @@ namespace ScriptSDK.Gumps
             Size = new Size(c.Height, c.Width);
             Color = c.Color;
             TextID = c.DefaultTextId;
-            Text = Owner.RawText.Count > TextID ? Owner.RawText[TextID] : string.Empty;
+            //Text = Owner.RawText.Count > TextID ? Owner.RawText[TextID] : string.Empty;
+            //Drabadan edit, due to Text setter sends useless api call to stealth, so using private value in ctor;
+            _text = Owner.RawText.Count > TextID ? Owner.RawText[TextID] : string.Empty;
             Limit = c.Limit;
             Page = c.Page;
             ElementID = c.ElemNum;
+            ReturnValue = c.ReturnValue;
         }
 
         private Gump Owner { get; set; }
@@ -81,6 +87,11 @@ namespace ScriptSDK.Gumps
         /// </summary>
         public int TextID { get; private set; }
 
+        /// <summary>
+        /// Stores ReturnValue of control, which is only exposed for debug research. The control will handle actions standalone.
+        /// </summary>
+        public int ReturnValue { get; private set; }
+
         private string _text { get; set; }
 
         /// <summary>
@@ -96,7 +107,7 @@ namespace ScriptSDK.Gumps
                 var index = Gump.GetGumpIndex(Owner.GumpType);
                 if (Events.InvokeOnGumpReply(Owner,
                     new GumpReplyEventArgs(this,
-                        (index >= 0) && Stealth.Client.NumGumpTextEntry((ushort)index, TextID, value))))
+                        (index >= 0) && Stealth.Client.NumGumpTextEntry((ushort) index, ReturnValue, value))))
                     _text = value;
             }
         }

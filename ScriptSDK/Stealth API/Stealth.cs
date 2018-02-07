@@ -16,6 +16,10 @@ namespace StealthAPI
 {
     public class Stealth : IDisposable
     {
+        /// <summary>
+        /// Connect timeout. Default 1 minute
+        /// </summary>
+        public static TimeSpan StealthAttachTimeout = new TimeSpan(0,1,0);
         public static bool EnableTracing { get; set; }
 
         public static void AddTraceMessage(object o, string s)
@@ -906,9 +910,12 @@ namespace StealthAPI
                     Win32.SendMessage(tWndPtr, Win32.WM_COPYDATA, IntPtr.Zero, copyDataPtr);
                     AddTraceMessage("Message sended. Wait message from Stealth.", "Stealth.Main");
                     uint peekvalue = 0x600;
+                    var sw = Stopwatch.StartNew();
                     while (!Win32.PeekMessage(out msg, 0, peekvalue, peekvalue, Win32.PM_REMOVE))
                     {
                         Thread.Sleep(10);
+                        if (sw.Elapsed >= StealthAttachTimeout)
+                            throw new InvalidOperationException("Could not attach to Stealth. Exiting.");
                     }
                     AddTraceMessage(string.Format("Message recieved. Port: {0}", (int)(msg.wParam)), "Stealth.Main");
                 }

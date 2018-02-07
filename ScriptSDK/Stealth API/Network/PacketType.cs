@@ -373,6 +373,24 @@ namespace StealthAPI
         SCGetMoveOpenDoor = 350,
         SCSetMoveThroughNPC = 351,
         SCGetMoveThroughNPC = 352,
-        SCGetBuffBarInfo = 353
+        SCGetBuffBarInfo = 353,
+
+        SCConvertIntegerToFlags = 354,
+        SCSkillCurrentValue = 355,
+
+        /* Skype functions not implemented
+        SCSkype_Connect = 356,
+        SCSkype_Disconnect = 357,
+        SCSkype_Connected = 358,
+        SCSkype_SendMessage = 359,
+        SCSkype_NickByID = 360,
+        SCSkype_IDByNick = 361,
+        */
+
+        SCSetMoveThroughCorner = 362,
+        SCGetMoveThroughCorner = 363,
+        SCSetMoveHeuristicMult = 364,
+        SCGetMoveHeuristicMult = 365,
+        SCChangeProfileEx = 366,
     }
 }

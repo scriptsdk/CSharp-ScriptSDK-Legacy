@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using StealthAPI;
 
 namespace ScriptSDK.Data
 {
@@ -402,6 +403,15 @@ namespace ScriptSDK.Data
         }
 
         /// <summary>
+        /// Alternative constructor allows to use an MyPoint object as base.
+        /// </summary>
+        /// <param name="p"></param>
+        public Point3D(MyPoint r) : this(r.X,r.Y,r.Z)
+        {
+
+        }
+
+        /// <summary>
         /// Returns X.
         /// </summary>
         public int X
@@ -527,6 +537,14 @@ namespace ScriptSDK.Data
         public static bool operator !=(Point3D l, IPoint3D r)
         {
             return r != null && (l.m_X != r.X || l.m_Y != r.Y || l.m_Z != r.Z);
+        }
+
+        public double DistanceSqrt(Point3D p2)
+        {
+            var xDelta = X - p2.X;
+            var yDelta = Y - p2.Y;
+
+            return Math.Sqrt((xDelta * xDelta) + (yDelta * yDelta));
         }
     }
 

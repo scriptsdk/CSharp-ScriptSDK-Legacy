@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using ScriptSDK.Data;
 using ScriptSDK.Mobiles;
 using StealthAPI;
@@ -38,6 +39,11 @@ namespace ScriptSDK.Attributes
             set { Stealth.Client.SetMoveOpenDoor(value); }
         }
 
+        public void Move(Point3D x,int accuracy = 0)
+        {
+            MoveXYZ((ushort)x.X, (ushort)x.Y, (sbyte)x.Z, accuracy, accuracy, true);
+        }
+
         /// <summary>
         /// Returns instance of pathfinding engine.
         /// </summary>
@@ -45,6 +51,21 @@ namespace ScriptSDK.Attributes
         public static MovingHelper GetMovingHelper()
         {
             return _instance ?? (_instance = new MovingHelper(PlayerMobile.GetPlayer()));
+        }
+        /// <summary>
+        /// Generates a path array to waypoint from player to destination.
+        /// </summary>
+        /// <param name="dest"></param>
+        /// <param name="optimized"></param>
+        /// <param name="accuracy"></param>
+        /// <returns></returns>
+        public List<Point3D> GetPath(Point3D dest, bool optimized, int accuracy)
+        {
+            var results = new List<Point3D>();
+            var res = Stealth.Client.GetPathArray3D(PlayerMobile.GetPlayer().Location.X, PlayerMobile.GetPlayer().Location.Y, PlayerMobile.GetPlayer().Location.Z, dest.X, dest.Y, dest.Z, PlayerMobile.GetPlayer().Map, accuracy, accuracy, true);
+            foreach (var r in res)
+                results.Add(new Point3D(r));
+            return results;
         }
 
         /// <summary>
@@ -89,11 +110,11 @@ namespace ScriptSDK.Attributes
         /// <param name="accuracyZ"></param>
         /// <param name="run"></param>
         /// <returns></returns>
-        public List<MyPoint> GetPathArray3D(Point3D start, Point3D end, byte World, int accuracyXY, int accuracyZ,
+        public List<MyPoint> GetPathArray3D(Point3D start, Point3D end, Map World, int accuracyXY, int accuracyZ,
             bool run)
         {
             return GetPathArray3D((ushort) start.X, (ushort) start.Y, (sbyte) start.Z, (ushort) end.X, (ushort) end.Y,
-                (sbyte) end.Z, World, accuracyXY, accuracyZ, run);
+                (sbyte) end.Z, (byte)World, accuracyXY, accuracyZ, run);
         }
 
         /// <summary>

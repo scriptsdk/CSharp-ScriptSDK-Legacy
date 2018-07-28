@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using ScriptSDK.Data;
+using System.Runtime.InteropServices;
 #pragma warning disable 1591
 
 namespace StealthAPI
@@ -12,5 +13,7 @@ namespace StealthAPI
         public ushort Y;
         public byte Z;
         public ushort Color;
+
+        public Point3D Loc =>   new Point3D(X, Y, Z); 
     }
 }

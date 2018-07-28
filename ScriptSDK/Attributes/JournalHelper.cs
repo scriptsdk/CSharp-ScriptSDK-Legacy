@@ -323,6 +323,14 @@ namespace ScriptSDK.Attributes
         {
             return Stealth.Client.InJournal(content) > -1;
         }
+
+        public bool InJournal(string[] content)
+        {
+            foreach (var s in content)
+                if (Stealth.Client.InJournal(s) > -1)
+                    return true;
+            return false;
+        }
         /// <summary>
         /// Function returns if content was in journal between both timestamps.
         /// </summary>

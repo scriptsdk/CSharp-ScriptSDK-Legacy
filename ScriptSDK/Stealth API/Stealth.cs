@@ -4217,6 +4217,10 @@ namespace StealthAPI
             return _client.SendPacket<List<MyPoint>>(PacketType.SCGetPathArray, destX, destY, optimized, accuracy);
         }
         //TODO: Needs testing
+        public List<MyPoint> GetPathArray3D(int startX, int startY, int startZ, int finishX, int finishY, int finishZ, Map worldNum, int accuracyXY, int accuracyZ, bool run)
+        {
+            return _client.SendPacket<List<MyPoint>>(PacketType.SCGetPathArray3D, (ushort)startX, (ushort)startY, (sbyte)startZ, (ushort)finishX, (ushort)finishY, (sbyte)finishZ, (byte)worldNum, accuracyXY, accuracyZ, run);
+        }
         public List<MyPoint> GetPathArray3D(ushort startX, ushort startY, sbyte startZ, ushort finishX, ushort finishY, sbyte finishZ, byte worldNum, int accuracyXY, int accuracyZ, bool run)
         {
             return _client.SendPacket<List<MyPoint>>(PacketType.SCGetPathArray3D, startX, startY, startZ, finishX, finishY, finishZ, worldNum, accuracyXY, accuracyZ, run);

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2042
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScriptSDK", "ScriptSDK\ScriptSDK.csproj", "{1809DE0B-5DAC-4F89-A5A3-601912B9EAB1}"
 EndProject
@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		LICENSE = LICENSE
 		Readme.md = Readme.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HoboLJ", "HoboLJ\HoboLJ.csproj", "{CC233DC3-1937-4442-A8A2-DD2EAFC2A595}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,8 +23,15 @@ Global
 		{1809DE0B-5DAC-4F89-A5A3-601912B9EAB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1809DE0B-5DAC-4F89-A5A3-601912B9EAB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1809DE0B-5DAC-4F89-A5A3-601912B9EAB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC233DC3-1937-4442-A8A2-DD2EAFC2A595}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC233DC3-1937-4442-A8A2-DD2EAFC2A595}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC233DC3-1937-4442-A8A2-DD2EAFC2A595}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC233DC3-1937-4442-A8A2-DD2EAFC2A595}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D0BC7A94-DBC1-445A-9E28-A2EF596BA94C}
 	EndGlobalSection
 EndGlobal

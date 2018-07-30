@@ -176,7 +176,6 @@ namespace ScriptSDK.Engines
             uint contID = uint.MaxValue;
             if (containerID != null)
                 contID = containerID.Value;
-            #region Perform Query
             var res = new List<T>();
             if (Stealth.Client.FindType(objType, contID) < 1)
                 return res;

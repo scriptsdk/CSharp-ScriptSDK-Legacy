@@ -44,6 +44,10 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="Ultima, Version=4.3.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\Ultima.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Stealth API\Converters.cs" />
@@ -168,6 +172,7 @@
     <Compile Include="Utilities\Utility.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Ultima.dll" />
     <Content Include="XML-Base.txt" />
   </ItemGroup>
   <ItemGroup>

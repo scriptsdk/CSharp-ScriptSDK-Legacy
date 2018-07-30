@@ -721,12 +721,20 @@ namespace ScriptSDK.Engines
             var py = start.Y >= end.Y ? new Point2D(end.Y, start.Y) : new Point2D(start.Y, end.Y);
             var w = Stealth.Client.GetWorldNum();
 
+            //assumes fel for now
+            
+
             var list = new List<StaticItemRealXY>();
 
             for (var x = px.X; x < px.Y + 1; x++)
             {
                 for (var y = py.X; y < py.Y + 1; y++)
                 {
+                    var tiles = Ultima.Map.Felucca.Tiles.GetStaticTiles(x, y);
+                    if (tiles.Count(t => TreeTiles.Contains(t.ID)) == 0)
+                        continue;
+                    var tree = tiles.FirstOrDefault(t => TreeTiles.Contains(t.ID));
+                    list.Add(new StaticItemRealXY() { X = (ushort)x, Y = (ushort)y, Z = (byte)tree.Z, Tile = tree.ID });
                     var info = ReadStaticsXY((ushort) x, (ushort) y, w);
                     list.AddRange(info.Where(e => TreeTiles.Contains(e.Tile)));
                 }

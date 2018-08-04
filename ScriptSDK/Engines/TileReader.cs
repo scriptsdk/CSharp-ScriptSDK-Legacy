@@ -627,7 +627,39 @@ namespace ScriptSDK.Engines
             return GetMiningSpots(new Point2D(loc.X - Distance, loc.Y - Distance),
                 new Point2D(loc.X + Distance, loc.Y + Distance));
         }
+        /// <summary>
+        /// Function try to parse useable locations for mining on a certain area.
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <returns></returns>
+        public static List<StaticItemRealXY> GetOreSpots(Point2D start, Point2D end)
+        {
+            var px = start.X >= end.X ? new Point2D(end.X, start.X) : new Point2D(start.X, end.X);
+            var py = start.Y >= end.Y ? new Point2D(end.Y, start.Y) : new Point2D(start.Y, end.Y);
+            var w = Stealth.Client.GetWorldNum();
 
+            //assumes fel for now
+
+
+            var list = new List<StaticItemRealXY>();
+
+            for (var x = px.X; x < px.Y + 1; x++)
+            {
+                for (var y = py.X; y < py.Y + 1; y++)
+                {
+                    var tiles = Ultima.Map.Felucca.Tiles.GetStaticTiles(x, y);
+                    if (tiles.Count(t => CaveTiles.Contains(t.ID)) == 0)
+                        continue;
+                    var tree = tiles.FirstOrDefault(t => CaveTiles.Contains(t.ID));
+                    list.Add(new StaticItemRealXY() { X = (ushort)x, Y = (ushort)y, Z = (byte)tree.Z, Tile = tree.ID });
+                    var info = ReadStaticsXY((ushort)x, (ushort)y, w);
+                    list.AddRange(info.Where(e => CaveTiles.Contains(e.Tile)));
+                }
+            }
+
+            return list;
+        }
         /// <summary>
         /// Function try to parse useable locations for mining on a certain area.
         /// </summary>

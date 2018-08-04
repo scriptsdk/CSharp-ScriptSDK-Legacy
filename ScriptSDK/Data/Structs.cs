@@ -378,7 +378,7 @@ namespace ScriptSDK.Data
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <param name="z"></param>
-        public Point3D(int x, int y, int z)
+        public Point3D(int x, int y, int z = 0)
         {
             m_X = x;
             m_Y = y;

@@ -83,7 +83,8 @@ namespace StealthAPI
                         var packet = new Packet();
                         packet.Method = (PacketType)_reader.ReadUInt16();
                         packet.DataLength = _reader.ReadInt16();
-                        packet.Data = _reader.ReadBytes(packet.DataLength);
+                        
+                        packet.Data = _reader.ReadBytes((ushort)packet.DataLength);
 
                         if (Stealth.EnableTracing)
                             Stealth.AddTraceMessage(string.Format("Read packet. Type: {0}, Param: {1}",
@@ -233,13 +234,13 @@ namespace StealthAPI
 
         private T WaitReply<T>(PacketType type)
         {
-            while (_replyes.Count == 0)
-                Thread.Sleep(10);
 
             Packet packet;
             ushort replyMethod;
             do
             {
+                while (_replyes.Count == 0)
+                    Thread.Sleep(10);
                 packet = _replyes.Dequeue();
                 replyMethod = BitConverter.ToUInt16(packet.Data, 0);
             } while (replyMethod != (ushort)type);

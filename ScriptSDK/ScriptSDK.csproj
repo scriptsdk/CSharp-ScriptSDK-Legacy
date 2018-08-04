@@ -50,6 +50,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Items.cs" />
+    <Compile Include="Logger.cs" />
     <Compile Include="Stealth API\Converters.cs" />
     <Compile Include="Stealth API\Data\AboutData.cs" />
     <Compile Include="Stealth API\Data\BuffIcon.cs" />

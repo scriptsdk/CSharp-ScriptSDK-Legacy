@@ -612,7 +612,16 @@ namespace ScriptSDK.Items
 
             return m && Stealth.Client.MoveItem(Serial.Value, amount, target.Serial.Value, location.X, location.Y, location.Z);
         }
+        public virtual bool MoveItem(Serial target, int amount)
+        {
+            return MoveItem(target, amount, new Point3D(0, 0, 0));
+        }
+        public virtual bool MoveItem(Serial target, int amount, Point3D location)
+        {
+            var m = CanBeMoved;
 
+            return m && Stealth.Client.MoveItem(Serial.Value, amount, target.Value, location.X, location.Y, location.Z);
+        }
         /// <summary>
         /// Performs drag and drop action towards backpack.
         /// </summary>

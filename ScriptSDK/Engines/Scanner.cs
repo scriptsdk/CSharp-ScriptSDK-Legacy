@@ -165,19 +165,17 @@ namespace ScriptSDK.Engines
 
             return Results;
         }
-        public static List<T> Find<T>(string objType, Serial containerID = null) where T : UOEntity
+        public static List<T> Find<T>(string objType, Serial containerID) where T : UOEntity
         {
             return Find<T>(EasyUOHelper.ConvertToStealthType(objType), containerID);
         }
 
-        public static List<T> Find<T>(ushort objType, Serial containerID = null) where T : UOEntity
+        public static List<T> Find<T>(ushort objType, Serial containerID) where T : UOEntity
         {
             HandleGarbage();
-            uint contID = uint.MaxValue;
-            if (containerID != null)
-                contID = containerID.Value;
+
             var res = new List<T>();
-            if (Stealth.Client.FindType(objType, contID) < 1)
+            if (Stealth.Client.FindType(objType, containerID.Value) < 1)
                 return res;
             foreach (var i in Stealth.Client.GetFindList())
                 res.Add(Activator.CreateInstance(typeof(T), new Serial(i)) as T);

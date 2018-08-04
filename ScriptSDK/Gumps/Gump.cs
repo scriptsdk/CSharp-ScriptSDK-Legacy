@@ -9,6 +9,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using ScriptSDK.Data;
 using StealthAPI;
 
@@ -422,6 +423,45 @@ namespace ScriptSDK.Gumps
         public static void ClearIgnoreList()
         {
             Stealth.Client.ClearGumpsIgnore();
+        }
+
+        public static bool WaitForGump(string text, double MaxDelay, out Gump gump)
+        {
+            var start = DateTime.UtcNow;
+            var finish = start.AddMilliseconds(MaxDelay);
+            bool rstate = false;
+            gump = null;
+            var cnt = Count;
+            do
+                for(ushort i = 0; i < cnt;i++)
+                {
+                    var raw = Stealth.Client.GetGumpTextLines((ushort)(i));
+                    if (raw.FirstOrDefault(t => t.Contains(text)) != null)
+                    {
+                        rstate = true;
+                        gump = new Gump( Stealth.Client.GetGumpInfo(i));
+                        break;
+                    }
+                }
+            while (!rstate && DateTime.UtcNow < finish);
+            return rstate;
+        }
+        public static bool WaitForGump(string text, double MaxDelay)
+        {
+            var start = DateTime.UtcNow;
+            var finish = start.AddMilliseconds(MaxDelay);
+            bool rstate = false;
+            do
+                foreach(var g in Gump.ActiveGumps)
+                {
+                    if (g.RawText.FirstOrDefault(t => t.Contains(text)) != null)
+                    {
+                        rstate = true;
+                        break;
+                    }
+                }                
+            while (!rstate && DateTime.UtcNow < finish);
+            return rstate;
         }
 
         /// <summary>

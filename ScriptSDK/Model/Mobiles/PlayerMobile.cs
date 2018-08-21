@@ -21,6 +21,17 @@ namespace ScriptSDK.Mobiles
     /// </summary>		
     public class PlayerMobile : Mobile
     {
+        public bool Pathfind(Point3D loc, int accuracy = 0)
+        {
+            
+            foreach (var x in Movement.GetPath(loc, true, accuracy))
+            {
+                Movement.Move(x, 0);
+            }
+            if (Location.DistanceSqrt(loc) > accuracy)
+                return false;
+            return true;
+        }
         private PlayerMobile()
             : base(new Serial(Stealth.Client.GetSelfID()))
         {

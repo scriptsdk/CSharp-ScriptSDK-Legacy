@@ -431,18 +431,20 @@ namespace ScriptSDK.Gumps
             var finish = start.AddMilliseconds(MaxDelay);
             bool rstate = false;
             gump = null;
-            var cnt = Count;
-            do
-                for(ushort i = 0; i < cnt;i++)
+
+            do {
+                var cnt = Count;
+                for (ushort i = 0; i < cnt; i++)
                 {
-                    var raw = Stealth.Client.GetGumpTextLines((ushort)(i));
-                    if (raw.FirstOrDefault(t => t.Contains(text)) != null)
+                    var g = new Gump(Stealth.Client.GetGumpInfo(i));
+                    if (g.RawText.FirstOrDefault(t => t.Contains(text)) != null)
                     {
                         rstate = true;
-                        gump = new Gump( Stealth.Client.GetGumpInfo(i));
+                        gump = g;
                         break;
                     }
                 }
+            }   
             while (!rstate && DateTime.UtcNow < finish);
             return rstate;
         }

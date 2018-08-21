@@ -1023,7 +1023,7 @@ namespace StealthAPI
                     OnUpdateChar((uint)data.Parameters[0]);
                     break;
                 case EventTypes.DrawObject:
-                    OnDrawObject((uint)data.Parameters[0]);
+                    OnDrawObject(uint.Parse(data.Parameters[0].ToString()));
                     break;
                 case EventTypes.Menu:
                     OnMenu((uint)data.Parameters[0], (ushort)data.Parameters[1]);

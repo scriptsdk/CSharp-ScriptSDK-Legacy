@@ -12,6 +12,10 @@ namespace ScriptSDK.Engines
     /// </summary>
     public static class TileReader
     {
+        static TileReader()
+        {
+            Initialize();
+        }
         /// <summary>
         /// This function should be always called once before handling the tilereader.
         /// Not required to be called when SDK.Initialize has been called before.

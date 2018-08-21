@@ -79,7 +79,6 @@ namespace StealthAPI
                     while (((NetworkStream)_reader.BaseStream).DataAvailable)
                     {
                         var packetLen = BitConverter.ToUInt32(_reader.ReadBytes(4), 0);
-
                         var packet = new Packet();
                         packet.Method = (PacketType)_reader.ReadUInt16();
                         packet.DataLength = _reader.ReadInt16();
@@ -132,7 +131,7 @@ namespace StealthAPI
                         while (stream.Position < stream.Length - 1)
                         {
                             var type = reader.ReadByte();
-                            var size = reader.ReadUInt16();
+                            var size = reader.ReadByte();
                             switch ((DataType)type)
                             {
                                 case DataType.parUnicodeString:

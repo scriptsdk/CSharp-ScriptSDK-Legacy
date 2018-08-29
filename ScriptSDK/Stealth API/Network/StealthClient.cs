@@ -297,6 +297,9 @@ namespace StealthAPI
                             switch (type)
                             {
                                 case PacketType.SCReadStaticsXY:
+                                    var dataSize = 9;
+                                    itemCount = (uint)(barray.Length / dataSize);
+                                    break;
                                 case PacketType.SCGetBuffBarInfo:
                                     itemCount = barray[0];
                                     barray = barray.Skip(1).ToArray();

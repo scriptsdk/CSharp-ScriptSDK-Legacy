@@ -233,13 +233,12 @@ namespace StealthAPI
 
         private T WaitReply<T>(PacketType type)
         {
-            while (_replyes.Count == 0)
-                Thread.Sleep(10);
-
             Packet packet;
             ushort replyMethod;
             do
             {
+                while (_replyes.Count == 0)
+                    Thread.Sleep(10);
                 packet = _replyes.Dequeue();
                 replyMethod = BitConverter.ToUInt16(packet.Data, 0);
             } while (replyMethod != (ushort)type);
@@ -297,6 +296,8 @@ namespace StealthAPI
                             switch (type)
                             {
                                 case PacketType.SCReadStaticsXY:
+                                    itemCount = (uint)barray.Length / 9;
+                                    break;
                                 case PacketType.SCGetBuffBarInfo:
                                     itemCount = barray[0];
                                     barray = barray.Skip(1).ToArray();

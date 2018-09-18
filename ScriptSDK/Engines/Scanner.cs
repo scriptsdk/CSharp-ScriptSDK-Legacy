@@ -676,7 +676,12 @@ namespace ScriptSDK.Engines
                 Find<Item>(0xFFFF, 0xFFFF, 0xFFFF, true)
                     .FindAll(e => e.Serial.Value >= 0x40000000 && e.Serial.Value <= 0x7FFFFFFF);
         }
-
+        public static List<UOEntity> FindEntity()
+        {
+            return
+                Find<UOEntity>( 0xFFFF, 0xFFFF, 0xFFFF, true )
+                    .FindAll( e => e.Serial.Value >= 0x40000000 && e.Serial.Value <= 0x7FFFFFFF );
+        }
         /// <summary>
         /// Function returns all valid mobiles in range.
         /// </summary>

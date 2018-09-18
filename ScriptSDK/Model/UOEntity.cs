@@ -36,9 +36,9 @@ namespace ScriptSDK
                 if (!Valid)
                     return new Point3D(0, 0, 0);
 
-                dynamic x = Stealth.Client.GetX(Serial.Value);
-                dynamic y = Stealth.Client.GetY(Serial.Value);
-                dynamic z = Stealth.Client.GetZ(Serial.Value);
+                int x = Stealth.Client.GetX(Serial.Value);
+                int y = Stealth.Client.GetY(Serial.Value);
+                int z = Stealth.Client.GetZ(Serial.Value);
 
                 return new Point3D(x, y, z);
             }

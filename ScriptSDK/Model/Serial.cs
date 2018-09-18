@@ -33,7 +33,10 @@ namespace ScriptSDK
         {
 
         }
-
+        public static implicit operator Serial( uint a )
+        {
+            return new Serial( a );
+        }
         /// <summary>
         /// Stores unique ID of object.
         /// </summary>

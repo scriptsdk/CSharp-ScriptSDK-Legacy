@@ -43,7 +43,7 @@ namespace StealthAPI
                 Trace.WriteLine(s);
         }
 
-        private readonly Version SUPPORTED_VERSION = new Version(7, 4, 0, 967);
+        private readonly Version SUPPORTED_VERSION = new Version(8, 8, 5, 0);
 
         #region Events
         private event EventHandler<ItemEventArgs> ItemInfoInternal;

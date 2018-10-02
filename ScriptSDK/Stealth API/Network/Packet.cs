@@ -9,7 +9,7 @@ namespace StealthAPI
     internal class Packet
     {
         internal byte[] Data;
-        internal short DataLength;
+        internal int DataLength;
         internal PacketType Method;
 
         public Packet()

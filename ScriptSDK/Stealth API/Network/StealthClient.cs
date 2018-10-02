@@ -82,8 +82,8 @@ namespace StealthAPI
 
                         var packet = new Packet();
                         packet.Method = (PacketType)_reader.ReadUInt16();
-                        packet.DataLength = _reader.ReadInt16();
-                        packet.Data = _reader.ReadBytes(packet.DataLength);
+                        packet.DataLength = _reader.ReadInt32();
+                        packet.Data = _reader.ReadBytes((int)packet.DataLength);
 
                         if (Stealth.EnableTracing)
                             Stealth.AddTraceMessage(string.Format("Read packet. Type: {0}, Param: {1}",

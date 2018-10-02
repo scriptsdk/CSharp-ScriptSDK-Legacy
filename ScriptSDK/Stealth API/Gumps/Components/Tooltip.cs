@@ -7,6 +7,7 @@ namespace StealthAPI
     internal struct Tooltip
     {
         public uint Cliloc_ID;
+        public string Arguments;
         public int Page;
         public int ElemNum;
     }

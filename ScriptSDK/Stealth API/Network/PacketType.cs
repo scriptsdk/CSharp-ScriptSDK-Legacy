@@ -1,4 +1,4 @@
-﻿
+
 namespace StealthAPI
 #pragma warning disable 1591
 {
@@ -369,28 +369,36 @@ namespace StealthAPI
         SCGetMultis = 347,
 
         SCClearInfoWindow = 348,
-        SCSetMoveOpenDoor = 349,
-        SCGetMoveOpenDoor = 350,
-        SCSetMoveThroughNPC = 351,
-        SCGetMoveThroughNPC = 352,
-        SCGetBuffBarInfo = 353,
+        SCGetBuffBarInfo = 349,
+        SCConvertIntegerToFlags = 350,
+        SCSkillCurrentValue = 351,
+        SCChangeProfileEx = 352,
+        SCMoverStop = 353,
+        SCSetARExtParams = 354,
+        //new mothods add HERE ^^^
 
-        SCConvertIntegerToFlags = 354,
-        SCSkillCurrentValue = 355,
+        //mover vars!
+        SCSetMoveOpenDoor = 400,
+        SCGetMoveOpenDoor = 401,
+        SCSetMoveThroughNPC = 402,
+        SCGetMoveThroughNPC = 403,
+        SCSetMoveThroughCorner = 404,
+        SCGetMoveThroughCorner = 405,
+        SCSetMoveHeuristicMult = 406,
+        SCGetMoveHeuristicMult = 407,
+        SCSetMoveCheckStamina = 408,
+        SCGetMoveCheckStamina = 409,
+        SCSetMoveTurnCost = 410,
+        SCGetMoveTurnCost = 411,
+        SCSetMoveBetweenTwoCorners = 412,
+        SCGetMoveBetweenTwoCorners = 413,
+        //mover vars finish, nothing to add here!
 
-        /* Skype functions not implemented
-        SCSkype_Connect = 356,
-        SCSkype_Disconnect = 357,
-        SCSkype_Connected = 358,
-        SCSkype_SendMessage = 359,
-        SCSkype_NickByID = 360,
-        SCSkype_IDByNick = 361,
-        */
-
-        SCSetMoveThroughCorner = 362,
-        SCGetMoveThroughCorner = 363,
-        SCSetMoveHeuristicMult = 364,
-        SCGetMoveHeuristicMult = 365,
-        SCChangeProfileEx = 366,
+        SCMessenger_GetConnected = 501,
+        SCMessenger_SetConnected = 502,
+        SCSMessenger_GetToken = 503,
+        SCSMessenger_SetToken = 504,
+        SCMessenger_GetName = 505,
+        SCMessenger_SendMessage = 506,
     }
 }

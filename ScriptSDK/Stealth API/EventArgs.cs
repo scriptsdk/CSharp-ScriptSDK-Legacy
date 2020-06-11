@@ -180,9 +180,7 @@ namespace StealthAPI
             AttributeId = attributeId;
             IsEnabled = isEnabled;
         }
-        public Buff_DebuffSystemEventArgs(uint objectId)
-            : base(objectId)
-        {}
+        public Buff_DebuffSystemEventArgs(uint objectId) : base(objectId){}
         public ushort AttributeId { get; private set; }
         public bool IsEnabled { get; private set; }
     }

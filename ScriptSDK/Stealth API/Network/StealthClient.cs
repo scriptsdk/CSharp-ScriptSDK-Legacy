@@ -131,11 +131,11 @@ namespace StealthAPI
                         while (stream.Position < stream.Length - 1)
                         {
                             var type = reader.ReadByte();
-                            var size = reader.ReadInt32();
+                            var size = reader.ReadUInt32();
                             switch ((DataType)type)
                             {
                                 case DataType.parUnicodeString:
-                                    parameters.Add(Encoding.Unicode.GetString(reader.ReadBytes(size)));
+                                    parameters.Add(Encoding.Unicode.GetString(reader.ReadBytes(Convert.ToInt32(size))));
                                     break;
                                 case DataType.parInteger:
                                     parameters.Add(reader.ReadInt32());

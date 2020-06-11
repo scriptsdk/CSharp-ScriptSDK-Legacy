@@ -1002,7 +1002,7 @@ namespace StealthAPI
                     break;
                 case EventTypes.Speech:
                     if (data.Parameters.Count == 3)
-                    OnSpeech((string)data.Parameters[0], (string)data.Parameters[1], (string)data.Parameters[2]);
+                    OnSpeech((string)data.Parameters[0], Convert.ToString(data.Parameters[1]), (string)data.Parameters[2]);
                     else
                     OnSpeech((string)data.Parameters[0], (string)data.Parameters[1]);
                     break;

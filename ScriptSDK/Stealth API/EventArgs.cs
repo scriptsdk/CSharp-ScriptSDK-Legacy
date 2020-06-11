@@ -30,15 +30,21 @@ namespace StealthAPI
     }
     public class SpeechEventArgs : EventArgs
     {
-        public SpeechEventArgs(string text, string senderName, uint senderId)
+        public SpeechEventArgs(string text, string senderName, string senderId)
         {
             Text = text;
             SenderName = senderName;
             SenderId = senderId;
         }
+        public SpeechEventArgs(string text, string senderName)
+        {
+            Text = text;
+            SenderName = senderName;
+            //SenderId = senderId;
+        }
         public string Text { get; private set; }
         public string SenderName { get; private set; }
-        public uint SenderId { get; private set; }
+        public string SenderId { get; private set; }
     }
 
     public class MoveRejectionEventArgs : EventArgs
@@ -133,6 +139,13 @@ namespace StealthAPI
             //ClilocId = clilocId;
             Text = text;
         }
+        public ClilocSpeechEventArgs(int senderId, string text)
+        {
+            SenderId = senderId;
+            //SenderName = senderName;
+            //ClilocId = clilocId;
+            Text = text;
+        }
         public int SenderId { get; private set; }
         public string SenderName { get; private set; }
         public uint ClilocId { get; private set; }
@@ -167,6 +180,9 @@ namespace StealthAPI
             AttributeId = attributeId;
             IsEnabled = isEnabled;
         }
+        public Buff_DebuffSystemEventArgs(uint objectId)
+            : base(objectId)
+        {}
         public ushort AttributeId { get; private set; }
         public bool IsEnabled { get; private set; }
     }

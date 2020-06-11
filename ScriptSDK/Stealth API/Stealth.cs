@@ -1001,7 +1001,10 @@ namespace StealthAPI
                     OnItemDeleted((uint)data.Parameters[0]);
                     break;
                 case EventTypes.Speech:
-                    OnSpeech((string)data.Parameters[0], (string)data.Parameters[1], (uint)data.Parameters[2]);
+                    if (data.Parameters.Count == 3)
+                    OnSpeech((string)data.Parameters[0], (string)data.Parameters[1], (string)data.Parameters[2]);
+                    else
+                    OnSpeech((string)data.Parameters[0], (string)data.Parameters[1]);
                     break;
                 case EventTypes.DrawGamePlayer:
                     OnDrawGamePlayer((uint)data.Parameters[0]);
@@ -1037,7 +1040,10 @@ namespace StealthAPI
                     OnAllowRefuseAttack((uint)data.Parameters[0], Convert.ToBoolean(data.Parameters[1]));
                     break;
                 case EventTypes.ClilocSpeech:
+                    if (data.Parameters.Count == 3)
                     OnClilocSpeech((int)data.Parameters[0], (string)data.Parameters[1], (string)data.Parameters[2]);
+                    else
+                    OnClilocSpeech((int)data.Parameters[0], (string)data.Parameters[1]);
                     break;
                 case EventTypes.ClilocSpeechAffix:
                     OnClilocSpeechAffix((int)data.Parameters[0], (string)data.Parameters[1], (string)data.Parameters[2], (string)data.Parameters[3]);
@@ -1046,7 +1052,10 @@ namespace StealthAPI
                     OnUnicodeSpeech((string)data.Parameters[0], (string)data.Parameters[1], (uint)data.Parameters[2]);
                     break;
                 case EventTypes.Buff_DebuffSystem:
-                    OnBuff_DebuffSystem((uint)data.Parameters[0], (ushort)data.Parameters[1], (bool)data.Parameters[2]);
+                    if (data.Parameters.Count == 3)
+                        OnBuff_DebuffSystem((uint)data.Parameters[0], (ushort)data.Parameters[1], (bool)data.Parameters[2]);
+                    else
+                        OnBuff_DebuffSystem(Convert.ToUInt32(data.Parameters[0]));
                     break;
                 case EventTypes.ClientSendResync:
                     OnClientSendResync();
@@ -1250,6 +1259,12 @@ namespace StealthAPI
             if (handler != null)
                 handler(this, new Buff_DebuffSystemEventArgs(objectId, attributeId, isEnabled));
         }
+        private void OnBuff_DebuffSystem(uint objectId)
+        {
+            var handler = Buff_DebuffSystemInternal;
+            if (handler != null)
+                handler(this, new Buff_DebuffSystemEventArgs(objectId));
+        }
 
         private void OnUnicodeSpeech(string text, string senderName, uint senderId)
         {
@@ -1271,7 +1286,12 @@ namespace StealthAPI
             if (handler != null)
                 handler(this, new ClilocSpeechEventArgs(senderId, senderName, text));
         }
-
+        private void OnClilocSpeech(int senderId, string text)
+        {
+            var handler = ClilocSpeechInternal;
+            if (handler != null)
+                handler(this, new ClilocSpeechEventArgs(senderId, text));
+        }
         private void OnAllowRefuseAttack(uint targetId, bool isAttackOk)
         {
             var handler = AllowRefuseAttackInternal;
@@ -1349,11 +1369,17 @@ namespace StealthAPI
                 handler(this, new ObjectEventArgs(objectId));
         }
 
-        private void OnSpeech(string text, string senderName, uint senderId)
+        private void OnSpeech(string text, string senderName, string senderId)
         {
             var handler = SpeechInternal;
             if (handler != null)
                 handler(this, new SpeechEventArgs(text, senderName, senderId));
+        }
+        private void OnSpeech(string text, string senderName)
+        {
+            var handler = SpeechInternal;
+            if (handler != null)
+                handler(this, new SpeechEventArgs(text, senderName));
         }
 
         private void OnItemDeleted(uint itemId)

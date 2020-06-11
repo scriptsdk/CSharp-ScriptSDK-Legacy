@@ -399,6 +399,7 @@ namespace StealthAPI
                 }
             }
         }
+        [Obsolete("Deprecated, use ClilocSpeech instead")]
         public event EventHandler<ClilocSpeechAffixEventArgs> ClilocSpeechAffix
         {
             add
@@ -420,6 +421,7 @@ namespace StealthAPI
                 }
             }
         }
+        [Obsolete("Deprecated, use ClilocSpeech instead")]
         public event EventHandler<UnicodeSpeechEventArgs> UnicodeSpeech
         {
             add
@@ -1035,10 +1037,10 @@ namespace StealthAPI
                     OnAllowRefuseAttack((uint)data.Parameters[0], Convert.ToBoolean(data.Parameters[1]));
                     break;
                 case EventTypes.ClilocSpeech:
-                    OnClilocSpeech((uint)data.Parameters[0], (string)data.Parameters[1], (uint)data.Parameters[2], (string)data.Parameters[3]);
+                    OnClilocSpeech((int)data.Parameters[0], (string)data.Parameters[1], (string)data.Parameters[2]);
                     break;
                 case EventTypes.ClilocSpeechAffix:
-                    OnClilocSpeechAffix((uint)data.Parameters[0], (string)data.Parameters[1], (uint)data.Parameters[2], (string)data.Parameters[3], (string)data.Parameters[4]);
+                    OnClilocSpeechAffix((int)data.Parameters[0], (string)data.Parameters[1], (string)data.Parameters[2], (string)data.Parameters[3]);
                     break;
                 case EventTypes.UnicodeSpeech:
                     OnUnicodeSpeech((string)data.Parameters[0], (string)data.Parameters[1], (uint)data.Parameters[2]);
@@ -1256,18 +1258,18 @@ namespace StealthAPI
                 handler(this, new UnicodeSpeechEventArgs(text, senderName, senderId));
         }
 
-        private void OnClilocSpeechAffix(uint senderId, string senderName, uint clilocId, string affix, string text)
+        private void OnClilocSpeechAffix(int senderId, string senderName, string affix, string text)
         {
             var handler = ClilocSpeechAffixInternal;
             if (handler != null)
-                handler(this, new ClilocSpeechAffixEventArgs(senderId, senderName, clilocId, affix, text));
+                handler(this, new ClilocSpeechAffixEventArgs(senderId, senderName, affix, text));
         }
 
-        private void OnClilocSpeech(uint senderId, string senderName, uint clilocId, string text)
+        private void OnClilocSpeech(int senderId, string senderName, string text)
         {
             var handler = ClilocSpeechInternal;
             if (handler != null)
-                handler(this, new ClilocSpeechEventArgs(senderId, senderName, clilocId, text));
+                handler(this, new ClilocSpeechEventArgs(senderId, senderName, text));
         }
 
         private void OnAllowRefuseAttack(uint targetId, bool isAttackOk)

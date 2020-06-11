@@ -126,22 +126,22 @@ namespace StealthAPI
     }
     public class ClilocSpeechEventArgs : EventArgs
     {
-        public ClilocSpeechEventArgs(uint senderId, string senderName, uint clilocId, string text)
+        public ClilocSpeechEventArgs(int senderId, string senderName, string text)
         {
             SenderId = senderId;
             SenderName = senderName;
-            ClilocId = clilocId;
+            //ClilocId = clilocId;
             Text = text;
         }
-        public uint SenderId { get; private set; }
+        public int SenderId { get; private set; }
         public string SenderName { get; private set; }
         public uint ClilocId { get; private set; }
         public string Text { get; private set; }
     }
     public class ClilocSpeechAffixEventArgs : ClilocSpeechEventArgs
     {
-        public ClilocSpeechAffixEventArgs(uint senderId, string senderName, uint clilocId, string affix, string text)
-            : base(senderId, senderName, clilocId, text)
+        public ClilocSpeechAffixEventArgs(int senderId, string senderName, string affix, string text)
+            : base(senderId, senderName, text)
         {
             Affix = affix;
         }

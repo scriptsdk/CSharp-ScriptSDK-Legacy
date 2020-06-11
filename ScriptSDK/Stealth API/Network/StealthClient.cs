@@ -121,7 +121,7 @@ namespace StealthAPI
 
                 case PacketType.SCExecEventProc:
                     var eventCode = packet.Data[0];
-                    var eventType = (EventTypes)packet.Data[1];
+                    var eventType = (EventTypes)packet.Data[0];
 
 
                     var parameters = new ArrayList();

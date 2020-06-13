@@ -43,9 +43,24 @@ namespace StealthAPI
         GumpTextEntry = 33,
         GraphicalEffect = 34,
         IRCIncomingText = 35,
-        SkypeEvent = 36
+        //SkypeEvent = 36,
+        MessengerEvent = 36,
+        SetGlobalVar = 37,
+        UpdateObjStats = 38
     }
-
+    public enum MessangerType : byte
+    {
+        Unknown = 0,
+        Telegram = 1,
+        Viber = 2
+    }
+    public enum MessangerEventType : byte
+    {
+        Connected = 0,
+        Disconnected = 1,
+        Message = 2,
+        Error = 3
+    }
     public enum RejectMoveItemReasons : byte
     {
         CanNotPickUp = 0,
@@ -336,7 +351,37 @@ namespace StealthAPI
         CharProfile,
         Container
     }
-
+    public enum Buffs : int
+    {
+        //MAGERY
+        Clumsy = 117706755,
+        FeebleMind = 117707011,
+        NightSight = 0,
+        ReactiveArmor = 117703683,
+        Weaken = 117707267,
+        Agility = 117708035,
+        Cunning = 117708291,
+        Protection = 117703939,
+        Strength = 117708547,
+        Bless = 117708803,
+        Poison = 117706243,
+        Curse = 117707523,
+        Incognito = 117704707,
+        MagicReflection = 117704451,
+        Paralyse = 117705987,
+        Invisibility = 117699587,
+        //NECROMANCY
+        BloodOath = 117700099,
+        CorpseSkin = 117700611,
+        CurseWeapon = 117719043,
+        HorrificBeast = 117718275,
+        LichForm = 117718531,
+        MindRot = 117700867,
+        PainSpike = 117701123,
+        Strangle = 117701379,
+        VampiricEmbrace = 117718787,
+        WraithForm = 117728259
+    }
     /*
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct TPage

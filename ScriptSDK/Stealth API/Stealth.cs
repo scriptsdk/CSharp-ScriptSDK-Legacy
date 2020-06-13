@@ -82,8 +82,10 @@ namespace StealthAPI
         private event EventHandler<GumpTextEntryEventArgs> GumpTextEntryInternal;
         private event EventHandler<GraphicalEffectEventArgs> GraphicalEffectInternal;
         private event EventHandler<IRCIncomingTextEventArgs> IRCIncomingTextInternal;
-        private event EventHandler<SkypeIncomingTextEventArgs> SkypeIncomingTextInternal;
-
+        //private event EventHandler<SkypeIncomingTextEventArgs> SkypeIncomingTextInternal;
+        private event EventHandler<MessangerIncomingTextEventArgs>MessangerIncomingTextInternal;
+        private event EventHandler<UpdateObjectStatsEventArgs>UpdateObjectStatsInternal;
+        private event EventHandler<SetGlobalVarEventArgs> SetGlobalInternal;
         public event EventHandler<ItemEventArgs> ItemInfo
         {
             add
@@ -847,27 +849,27 @@ namespace StealthAPI
             }
         }
 
-        public event EventHandler<SkypeIncomingTextEventArgs> SkypeIncomingText
-        {
-            add
-            {
-                var handler = SkypeIncomingTextInternal;
-                if (handler == null)
-                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.SkypeEvent, _eventFunctionCounter++);
-                SkypeIncomingTextInternal += value;
-            }
-            remove
-            {
-                SkypeIncomingTextInternal -= value;
+        //public event EventHandler<SkypeIncomingTextEventArgs> SkypeIncomingText
+        //{
+        //    add
+        //    {
+        //        var handler = SkypeIncomingTextInternal;
+        //        if (handler == null)
+        //            _client.SendPacket(PacketType.SCSetEventProc, EventTypes.SkypeEvent, _eventFunctionCounter++);
+        //        SkypeIncomingTextInternal += value;
+        //    }
+        //    remove
+        //    {
+        //        SkypeIncomingTextInternal -= value;
 
-                var handler = SkypeIncomingTextInternal;
-                if (handler == null)
-                {
-                    _eventFunctionCounter--;
-                    _client.SendPacket(PacketType.SCClearEventProc, EventTypes.SkypeEvent);
-                }
-            }
-        }
+        //        var handler = SkypeIncomingTextInternal;
+        //        if (handler == null)
+        //        {
+        //            _eventFunctionCounter--;
+        //            _client.SendPacket(PacketType.SCClearEventProc, EventTypes.SkypeEvent);
+        //        }
+        //    }
+        //}
 
         public event EventHandler<StartStopEventArgs> StartStop;
         #endregion
@@ -995,73 +997,64 @@ namespace StealthAPI
             switch (data.EventType)
             {
                 case EventTypes.ItemInfo:
-                    OnItemInfo((uint)data.Parameters[0]);
+                    OnItemInfo((int)data.Parameters[0]);
                     break;
                 case EventTypes.ItemDeleted:
-                    OnItemDeleted((uint)data.Parameters[0]);
+                    OnItemDeleted((int)data.Parameters[0]);
                     break;
                 case EventTypes.Speech:
-                    if (data.Parameters.Count == 3)
-                    OnSpeech((string)data.Parameters[0], Convert.ToString(data.Parameters[1]), (string)data.Parameters[2]);
-                    else
-                    OnSpeech((string)data.Parameters[0], (string)data.Parameters[1]);
+                    OnSpeech((string)data.Parameters[0], (string)data.Parameters[1], (int)data.Parameters[2]);
                     break;
                 case EventTypes.DrawGamePlayer:
-                    OnDrawGamePlayer((uint)data.Parameters[0]);
+                    OnDrawGamePlayer((int)data.Parameters[0]);
                     break;
                 case EventTypes.MoveRejection:
                     OnMoveRejection((ushort)data.Parameters[0], (ushort)data.Parameters[1], (byte)data.Parameters[2], (ushort)data.Parameters[3], (ushort)data.Parameters[4]);
                     break;
                 case EventTypes.DrawContainer:
-                    OnDrawContainer((uint)data.Parameters[0], (ushort)data.Parameters[1]);
+                    OnDrawContainer((int)data.Parameters[0], (ushort)data.Parameters[1]);
                     break;
                 case EventTypes.AddItemToContainer:
-                    OnAddItemToContainer((uint)data.Parameters[0], (uint)data.Parameters[1]);
+                    OnAddItemToContainer((int)data.Parameters[0], (int)data.Parameters[1]);
                     break;
                 case EventTypes.AddMultipleItemsInCont:
-                    OnAddMultipleItemsInContainer((uint)data.Parameters[0]);
+                    OnAddMultipleItemsInContainer((int)data.Parameters[0]);
                     break;
                 case EventTypes.RejectMoveItem:
-                    OnRejectMoveItem((RejectMoveItemReasons)data.Parameters[0]);
+                    OnRejectMoveItem((StealthAPI.RejectMoveItemReasons)data.Parameters[0]);
                     break;
                 case EventTypes.UpdateChar:
-                    OnUpdateChar((uint)data.Parameters[0]);
+                    OnUpdateChar((int)data.Parameters[0]);
                     break;
                 case EventTypes.DrawObject:
-                    OnDrawObject((uint)data.Parameters[0]);
+                    OnDrawObject((int)data.Parameters[0]);
                     break;
                 case EventTypes.Menu:
-                    OnMenu((uint)data.Parameters[0], (ushort)data.Parameters[1]);
+                    OnMenu((int)data.Parameters[0], (ushort)data.Parameters[1]);
                     break;
                 case EventTypes.MapMessage:
-                    OnMapMessage((uint)data.Parameters[0], (int)data.Parameters[1], (int)data.Parameters[2]);
+                    OnMapMessage((int)data.Parameters[0], (int)data.Parameters[1], (int)data.Parameters[2]);
                     break;
                 case EventTypes.Allow_RefuseAttack:
-                    OnAllowRefuseAttack((uint)data.Parameters[0], Convert.ToBoolean(data.Parameters[1]));
+                    OnAllowRefuseAttack((int)data.Parameters[0], Convert.ToBoolean(data.Parameters[1]));
                     break;
                 case EventTypes.ClilocSpeech:
-                    if (data.Parameters.Count == 3)
-                    OnClilocSpeech((int)data.Parameters[0], (string)data.Parameters[1], (string)data.Parameters[2]);
-                    else
-                    OnClilocSpeech((int)data.Parameters[0], (string)data.Parameters[1]);
+                    OnClilocSpeech((int)data.Parameters[0], (string)data.Parameters[1], (int)data.Parameters[2], (string)data.Parameters[3]);
                     break;
                 case EventTypes.ClilocSpeechAffix:
-                    OnClilocSpeechAffix((int)data.Parameters[0], (string)data.Parameters[1], (string)data.Parameters[2], (string)data.Parameters[3]);
+                    OnClilocSpeechAffix((int)data.Parameters[0], (string)data.Parameters[1], (int)data.Parameters[2], (string)data.Parameters[3], (string)data.Parameters[4]);
                     break;
                 case EventTypes.UnicodeSpeech:
-                    OnUnicodeSpeech((string)data.Parameters[0], (string)data.Parameters[1], (uint)data.Parameters[2]);
+                    OnUnicodeSpeech((string)data.Parameters[0], (string)data.Parameters[1], (int)data.Parameters[2]);
                     break;
                 case EventTypes.Buff_DebuffSystem:
-                    if (data.Parameters.Count == 3)
-                        OnBuff_DebuffSystem((uint)data.Parameters[0], (ushort)data.Parameters[1], (bool)data.Parameters[2]);
-                    else
-                        OnBuff_DebuffSystem(Convert.ToUInt32(data.Parameters[0]));
+                    OnBuff_DebuffSystem((int)data.Parameters[0], (ushort)data.Parameters[1], (bool)data.Parameters[2]);
                     break;
                 case EventTypes.ClientSendResync:
                     OnClientSendResync();
                     break;
                 case EventTypes.CharAnimation:
-                    OnCharAnimation((uint)data.Parameters[0], (uint)data.Parameters[1]);
+                    OnCharAnimation((int)data.Parameters[0], (ushort)data.Parameters[1]);
                     break;
                 case EventTypes.ICQDisconnect:
                     OnICQDisconnect();
@@ -1070,13 +1063,13 @@ namespace StealthAPI
                     OnICQConnect();
                     break;
                 case EventTypes.ICQIncomingText:
-                    OnICQIncomingText((uint)data.Parameters[0], (string)data.Parameters[1]);
+                    OnICQIncomingText((int)data.Parameters[0], (string)data.Parameters[1]);
                     break;
                 case EventTypes.ICQError:
                     OnICQError((string)data.Parameters[0]);
                     break;
                 case EventTypes.IncomingGump:
-                    OnIncomingGump((uint)data.Parameters[0], (uint)data.Parameters[1], (uint)data.Parameters[2], (uint)data.Parameters[3]);
+                    OnIncomingGump((int)data.Parameters[0], (uint)data.Parameters[1], (int)data.Parameters[2], (int)data.Parameters[3]);
                     break;
                 case EventTypes.Timer1:
                     OnTimer1();
@@ -1085,10 +1078,10 @@ namespace StealthAPI
                     OnTimer2();
                     break;
                 case EventTypes.WindowsMessage:
-                    OnWindowsMessage((uint)data.Parameters[0]);
+                    OnWindowsMessage((int)data.Parameters[0]);
                     break;
                 case EventTypes.Sound:
-                    OnSound((ushort)data.Parameters[0], (ushort)data.Parameters[1], (ushort)data.Parameters[2], (int)data.Parameters[3]);
+                    OnSound((ushort)data.Parameters[0], (ushort)data.Parameters[1], (ushort)data.Parameters[2], (short)data.Parameters[3]);
                     break;
                 case EventTypes.Death:
                     OnDeath(Convert.ToBoolean(data.Parameters[0]));
@@ -1097,303 +1090,230 @@ namespace StealthAPI
                     OnQuestArrow((ushort)data.Parameters[0], (ushort)data.Parameters[1], Convert.ToBoolean(data.Parameters[2]));
                     break;
                 case EventTypes.PartyInvite:
-                    OnPartyInvite((uint)data.Parameters[0]);
+                    OnPartyInvite((int)data.Parameters[0]);
                     break;
                 case EventTypes.MapPin:
-                    OnMapPin((uint)data.Parameters[0], (byte)data.Parameters[1], (byte)data.Parameters[2], (ushort)data.Parameters[3], (ushort)data.Parameters[4]);
+                    OnMapPin((int)data.Parameters[0], (byte)data.Parameters[1], (byte)data.Parameters[2], (ushort)data.Parameters[3], (ushort)data.Parameters[4]);
                     break;
                 case EventTypes.GumpTextEntry:
-                    OnGumpTextEntry((uint)data.Parameters[0], (string)data.Parameters[1], (byte)data.Parameters[2], (uint)data.Parameters[3], (string)data.Parameters[4]);
+                    OnGumpTextEntry((int)data.Parameters[0], (string)data.Parameters[1], (byte)data.Parameters[2], (int)data.Parameters[3], (string)data.Parameters[4]);
                     break;
                 case EventTypes.GraphicalEffect:
-                    OnGraphicalEffect((uint)data.Parameters[0], (ushort)data.Parameters[1], (ushort)data.Parameters[2], (int)data.Parameters[3],
-                        (uint)data.Parameters[4], (ushort)data.Parameters[5], (ushort)data.Parameters[6], (int)data.Parameters[7],
+                    OnGraphicalEffect((int)data.Parameters[0], (ushort)data.Parameters[1], (ushort)data.Parameters[2], (short)data.Parameters[3],
+                        (int)data.Parameters[4], (ushort)data.Parameters[5], (ushort)data.Parameters[6], (short)data.Parameters[7],
                         (byte)data.Parameters[8], (ushort)data.Parameters[9], (byte)data.Parameters[10]);
                     break;
                 case EventTypes.IRCIncomingText:
                     OnIRCIncomingText((string)data.Parameters[0]);
                     break;
-                case EventTypes.SkypeEvent:
-                    OnSkypeIncomingText((string)data.Parameters[0], (string)data.Parameters[1], (string)data.Parameters[2], (byte)data.Parameters[3]);
+                case EventTypes.MessengerEvent:
+                    OnMessageIncomingText((MessangerType)data.Parameters[0], (string)data.Parameters[1], (string)data.Parameters[2], (string)data.Parameters[3],
+                        (string)data.Parameters[4], (MessangerEventType)data.Parameters[5]);
+                    break;
+                case EventTypes.SetGlobalVar:
+                    OnSetGlobalVar((string)data.Parameters[0], (string)data.Parameters[1]);
+                    break;
+                case EventTypes.UpdateObjStats:
+                    OnUpdateObjectStats((int)data.Parameters[0], (int)data.Parameters[1], (int)data.Parameters[2], (int)data.Parameters[3], (int)data.Parameters[4], (int)data.Parameters[5], (int)data.Parameters[6]);
                     break;
             }
             #endregion
         }
 
-        private void OnSkypeIncomingText(string senderId, string recieverId, string msg, byte eventCode)
-        {
-            var handler = SkypeIncomingTextInternal;
-            if (handler != null)
-                handler(this, new SkypeIncomingTextEventArgs(senderId, recieverId, msg, eventCode));
-        }
+        //private void OnSkypeIncomingText(string senderId, string recieverId, string msg, byte eventCode)
+        //{
+        //    SkypeIncomingTextInternal?.Invoke(this, new SkypeIncomingTextEventArgs(senderId, recieverId, msg, eventCode));
+        //}
 
         private void OnIRCIncomingText(string message)
         {
-            var handler = IRCIncomingTextInternal;
-            if (handler != null)
-                handler(this, new IRCIncomingTextEventArgs(message));
+            IRCIncomingTextInternal?.Invoke(this, new IRCIncomingTextEventArgs(message));
+        }
+        private void OnMessageIncomingText(MessangerType messangerType, string senderNickname, string senderId, string chatId, string eventMsg, MessangerEventType eventCode)
+        {
+            MessangerIncomingTextInternal?.Invoke(this, new MessangerIncomingTextEventArgs(messangerType, senderNickname, senderId, chatId, eventMsg, eventCode));
+        }
+        private void OnUpdateObjectStats(int objectId, int currentLife, int maxLife, int currentMana, int maxMana, int currentStamina, int maxStamina)
+        {
+            UpdateObjectStatsInternal?.Invoke(this, new UpdateObjectStatsEventArgs(objectId, currentLife, maxLife, currentMana, maxMana, currentStamina, maxStamina));
         }
 
-        private void OnGraphicalEffect(uint srcId, ushort srcX, ushort srcY, int srcZ, uint dstId, ushort dstX, ushort dstY, int dstZ, byte type, ushort itemId, byte fixedDir)
+        private void OnSetGlobalVar(string name, string value)
         {
-            var handler = GraphicalEffectInternal;
-            if (handler != null)
-                handler(this, new GraphicalEffectEventArgs(srcId, srcX, srcY, srcZ, dstId, dstX, dstY, dstZ, type, itemId, fixedDir));
+            SetGlobalInternal?.Invoke(this, new SetGlobalVarEventArgs(name, value));
+        }
+        private void OnGraphicalEffect(int srcId, ushort srcX, ushort srcY, int srcZ, int dstId, ushort dstX, ushort dstY, int dstZ, byte type, ushort itemId, byte fixedDir)
+        {
+            GraphicalEffectInternal?.Invoke(this, new GraphicalEffectEventArgs(srcId, srcX, srcY, srcZ, dstId, dstX, dstY, dstZ, type, itemId, fixedDir));
         }
 
-        private void OnGumpTextEntry(uint gumpTextEntryId, string title, byte inputStyle, uint maxValue, string title2)
+        private void OnGumpTextEntry(int gumpTextEntryId, string title, byte inputStyle, int maxValue, string title2)
         {
-            var handler = GumpTextEntryInternal;
-            if (handler != null)
-                handler(this, new GumpTextEntryEventArgs(gumpTextEntryId, title, inputStyle, maxValue, title2));
+            GumpTextEntryInternal?.Invoke(this, new GumpTextEntryEventArgs(gumpTextEntryId, title, inputStyle, maxValue, title2));
         }
 
-        private void OnMapPin(uint id, byte action, byte pinId, ushort x, ushort y)
+        private void OnMapPin(int id, byte action, byte pinId, ushort x, ushort y)
         {
-            var handler = MapPinInternal;
-            if (handler != null)
-                handler(this, new MapPinEventArgs(id, action, pinId, x, y));
+            MapPinInternal?.Invoke(this, new MapPinEventArgs(id, action, pinId, x, y));
         }
 
-        private void OnPartyInvite(uint inviterId)
+        private void OnPartyInvite(int inviterId)
         {
-            var handler = PartyInviteInternal;
-            if (handler != null)
-                handler(this, new PartyInviteEventArgs(inviterId));
+            PartyInviteInternal?.Invoke(this, new PartyInviteEventArgs(inviterId));
         }
 
         private void OnQuestArrow(ushort x, ushort y, bool isActive)
         {
-            var handler = QuestArrowInternal;
-            if (handler != null)
-                handler(this, new QuestArrowEventArgs(x, y, isActive));
+            QuestArrowInternal?.Invoke(this, new QuestArrowEventArgs(x, y, isActive));
         }
 
         private void OnDeath(bool isDead)
         {
-            var handler = DeathInternal;
-            if (handler != null)
-                handler(this, new DeathEventArgs(isDead));
+            DeathInternal?.Invoke(this, new DeathEventArgs(isDead));
         }
 
         private void OnSound(ushort soundId, ushort x, ushort y, int z)
         {
-            var handler = SoundInternal;
-            if (handler != null)
-                handler(this, new SoundEventArgs(soundId, x, y, z));
+            SoundInternal?.Invoke(this, new SoundEventArgs(soundId, x, y, z));
         }
 
-        private void OnWindowsMessage(uint lParam)
+        private void OnWindowsMessage(int lParam)
         {
-            var handler = WindowsMessageInternal;
-            if (handler != null)
-                handler(this, new WindowsMessageEventArgs(lParam));
+            WindowsMessageInternal?.Invoke(this, new WindowsMessageEventArgs(lParam));
         }
 
         private void OnTimer2()
         {
-            var handler = Timer2Internal;
-            if (handler != null)
-                handler(this, new EventArgs());
+            Timer2Internal?.Invoke(this, new EventArgs());
         }
 
         private void OnTimer1()
         {
-            var handler = Timer1Internal;
-            if (handler != null)
-                handler(this, new EventArgs());
+            Timer1Internal?.Invoke(this, new EventArgs());
         }
 
-        private void OnIncomingGump(uint serial, uint gumpId, uint x, uint y)
+        private void OnIncomingGump(int serial, uint gumpId, int x, int y)
         {
-            var handler = IncomingGumpInternal;
-            if (handler != null)
-                handler(this, new IncomingGumpEventArgs(serial, gumpId, x, y));
+            IncomingGumpInternal?.Invoke(this, new IncomingGumpEventArgs(serial, gumpId, x, y));
         }
 
         private void OnICQError(string text)
         {
-            var handler = ICQErrorInternal;
-            if (handler != null)
-                handler(this, new ICQErrorEventArgs(text));
+            ICQErrorInternal?.Invoke(this, new ICQErrorEventArgs(text));
         }
 
-        private void OnICQIncomingText(uint uin, string text)
+        private void OnICQIncomingText(int uin, string text)
         {
-            var handler = ICQIncomingTextInternal;
-            if (handler != null)
-                handler(this, new ICQIncomingTextEventArgs(uin, text));
+            ICQIncomingTextInternal?.Invoke(this, new ICQIncomingTextEventArgs(uin, text));
         }
 
         private void OnICQConnect()
         {
-            var handler = ICQConnectInternal;
-            if (handler != null)
-                handler(this, new EventArgs());
+            ICQConnectInternal?.Invoke(this, new EventArgs());
         }
 
         private void OnICQDisconnect()
         {
-            var handler = ICQDisconnectInternal;
-            if (handler != null)
-                handler(this, new EventArgs());
+            ICQDisconnectInternal?.Invoke(this, new EventArgs());
         }
 
-        private void OnCharAnimation(uint objectId, uint action)
+        private void OnCharAnimation(int objectId, ushort action)
         {
-            var handler = CharAnimationInternal;
-            if (handler != null)
-                handler(this, new CharAnimationEventArgs(objectId, action));
+            CharAnimationInternal?.Invoke(this, new CharAnimationEventArgs(objectId, action));
         }
 
         private void OnClientSendResync()
         {
-            var handler = ClientSendResyncInternal;
-            if (handler != null)
-                handler(this, new EventArgs());
+            ClientSendResyncInternal?.Invoke(this, new EventArgs());
         }
 
-        private void OnBuff_DebuffSystem(uint objectId, ushort attributeId, bool isEnabled)
+        private void OnBuff_DebuffSystem(int objectId, ushort attributeId, bool isEnabled)
         {
-            var handler = Buff_DebuffSystemInternal;
-            if (handler != null)
-                handler(this, new Buff_DebuffSystemEventArgs(objectId, attributeId, isEnabled));
-        }
-        private void OnBuff_DebuffSystem(uint objectId)
-        {
-            var handler = Buff_DebuffSystemInternal;
-            if (handler != null)
-                handler(this, new Buff_DebuffSystemEventArgs(objectId));
+            Buff_DebuffSystemInternal?.Invoke(this, new Buff_DebuffSystemEventArgs(objectId, attributeId, isEnabled));
         }
 
-        private void OnUnicodeSpeech(string text, string senderName, uint senderId)
+        private void OnUnicodeSpeech(string text, string senderName, int senderId)
         {
-            var handler = UnicodeSpeechInternal;
-            if (handler != null)
-                handler(this, new UnicodeSpeechEventArgs(text, senderName, senderId));
+            UnicodeSpeechInternal?.Invoke(this, new UnicodeSpeechEventArgs(text, senderName, senderId));
         }
 
-        private void OnClilocSpeechAffix(int senderId, string senderName, string affix, string text)
+        private void OnClilocSpeechAffix(int senderId, string senderName, int clilocId, string affix, string text)
         {
-            var handler = ClilocSpeechAffixInternal;
-            if (handler != null)
-                handler(this, new ClilocSpeechAffixEventArgs(senderId, senderName, affix, text));
+            ClilocSpeechAffixInternal?.Invoke(this, new ClilocSpeechAffixEventArgs(senderId, senderName, clilocId, affix, text));
         }
 
-        private void OnClilocSpeech(int senderId, string senderName, string text)
+        private void OnClilocSpeech(int senderId, string senderName, int clilocId, string text)
         {
-            var handler = ClilocSpeechInternal;
-            if (handler != null)
-                handler(this, new ClilocSpeechEventArgs(senderId, senderName, text));
+            ClilocSpeechInternal?.Invoke(this, new ClilocSpeechEventArgs(senderId, senderName, clilocId, text));
         }
-        private void OnClilocSpeech(int senderId, string text)
+        private void OnAllowRefuseAttack(int targetId, bool isAttackOk)
         {
-            var handler = ClilocSpeechInternal;
-            if (handler != null)
-                handler(this, new ClilocSpeechEventArgs(senderId, text));
-        }
-        private void OnAllowRefuseAttack(uint targetId, bool isAttackOk)
-        {
-            var handler = AllowRefuseAttackInternal;
-            if (handler != null)
-                handler(this, new AllowRefuseAttackEventArgs(targetId, isAttackOk));
+            AllowRefuseAttackInternal?.Invoke(this, new AllowRefuseAttackEventArgs(targetId, isAttackOk));
         }
 
-        private void OnMapMessage(uint itemId, int centerX, int centerY)
+        private void OnMapMessage(int itemId, int centerX, int centerY)
         {
-            var handler = MapMessageInternal;
-            if (handler != null)
-                handler(this, new MapMessageEventArgs(itemId, centerX, centerY));
+            MapMessageInternal?.Invoke(this, new MapMessageEventArgs(itemId, centerX, centerY));
         }
 
-        private void OnMenu(uint dialogId, ushort menuId)
+        private void OnMenu(int dialogId, ushort menuId)
         {
-            var handler = MenuInternal;
-            if (handler != null)
-                handler(this, new MenuEventArgs(dialogId, menuId));
+            MenuInternal?.Invoke(this, new MenuEventArgs(dialogId, menuId));
         }
 
-        private void OnDrawObject(uint objectId)
+        private void OnDrawObject(int objectId)
         {
-            var handler = DrawObjectInternal;
-            if (handler != null)
-                handler(this, new ObjectEventArgs(objectId));
+            DrawObjectInternal?.Invoke(this, new ObjectEventArgs(objectId));
         }
 
-        private void OnUpdateChar(uint objectId)
+        private void OnUpdateChar(int objectId)
         {
-            var handler = UpdateCharInternal;
-            if (handler != null)
-                handler(this, new ObjectEventArgs(objectId));
+            UpdateCharInternal?.Invoke(this, new ObjectEventArgs(objectId));
         }
 
         private void OnRejectMoveItem(RejectMoveItemReasons reason)
         {
-            var handler = RejectMoveItemInternal;
-            if (handler != null)
-                handler(this, new RejectMoveItemEventArgs(reason));
+            RejectMoveItemInternal?.Invoke(this, new RejectMoveItemEventArgs(reason));
         }
 
-        private void OnAddMultipleItemsInContainer(uint containerId)
+        private void OnAddMultipleItemsInContainer(int containerId)
         {
-            var handler = AddMultipleItemsInContainerInternal;
-            if (handler != null)
-                handler(this, new AddMultipleItemsInContainerEventArgs(containerId));
+            AddMultipleItemsInContainerInternal?.Invoke(this, new AddMultipleItemsInContainerEventArgs(containerId));
         }
 
-        private void OnAddItemToContainer(uint itemId, uint containerId)
+        private void OnAddItemToContainer(int itemId, int containerId)
         {
-            var handler = AddItemToContainerInternal;
-            if (handler != null)
-                handler(this, new AddItemToContainerEventArgs(itemId, containerId));
+            AddItemToContainerInternal?.Invoke(this, new AddItemToContainerEventArgs(itemId, containerId));
         }
 
-        private void OnDrawContainer(uint containerId, ushort modelGump)
+        private void OnDrawContainer(int containerId, ushort modelGump)
         {
-            var handler = DrawContainerInternal;
-            if (handler != null)
-                handler(this, new DrawContainerEventArgs(containerId, modelGump));
+            DrawContainerInternal?.Invoke(this, new DrawContainerEventArgs(containerId, modelGump));
         }
 
         private void OnMoveRejection(ushort xSource, ushort ySource, byte direction, ushort xDest, ushort yDest)
         {
-            var handler = MoveRejectionInternal;
-            if (handler != null)
-                handler(this, new MoveRejectionEventArgs(xSource, ySource, direction, xDest, yDest));
+            MoveRejectionInternal?.Invoke(this, new MoveRejectionEventArgs(xSource, ySource, direction, xDest, yDest));
         }
 
-        private void OnDrawGamePlayer(uint objectId)
+        private void OnDrawGamePlayer(int objectId)
         {
-            var handler = DrawGamePlayerInternal;
-            if (handler != null)
-                handler(this, new ObjectEventArgs(objectId));
+            DrawGamePlayerInternal?.Invoke(this, new ObjectEventArgs(objectId));
         }
 
-        private void OnSpeech(string text, string senderName, string senderId)
+        private void OnSpeech(string text, string senderName, int senderId)
         {
-            var handler = SpeechInternal;
-            if (handler != null)
-                handler(this, new SpeechEventArgs(text, senderName, senderId));
-        }
-        private void OnSpeech(string text, string senderName)
-        {
-            var handler = SpeechInternal;
-            if (handler != null)
-                handler(this, new SpeechEventArgs(text, senderName));
+            SpeechInternal?.Invoke(this, new SpeechEventArgs(text, senderName, senderId));
         }
 
-        private void OnItemDeleted(uint itemId)
+        private void OnItemDeleted(int itemId)
         {
-            var handler = ItemDeletedInternal;
-            if (handler != null)
-                handler(this, new ItemEventArgs(itemId));
+            ItemDeletedInternal?.Invoke(this, new ItemEventArgs(itemId));
         }
 
-        private void OnItemInfo(uint itemId)
+        private void OnItemInfo(int itemId)
         {
-            var handler = ItemInfoInternal;
-            if (handler != null)
-                handler(this, new ItemEventArgs(itemId));
+            ItemInfoInternal?.Invoke(this, new ItemEventArgs(itemId));
         }
         #endregion
 

@@ -43,9 +43,24 @@ namespace StealthAPI
         GumpTextEntry = 33,
         GraphicalEffect = 34,
         IRCIncomingText = 35,
-        SkypeEvent = 36
+        //SkypeEvent = 36,
+        MessengerEvent = 36,
+        SetGlobalVar = 37,
+        UpdateObjStats = 38
     }
-
+    public enum MessangerType : byte
+    {
+        Unknown = 0,
+        Telegram = 1,
+        Viber = 2
+    }
+    public enum MessangerEventType : byte
+    {
+        Connected = 0,
+        Disconnected = 1,
+        Message = 2,
+        Error = 3
+    }
     public enum RejectMoveItemReasons : byte
     {
         CanNotPickUp = 0,

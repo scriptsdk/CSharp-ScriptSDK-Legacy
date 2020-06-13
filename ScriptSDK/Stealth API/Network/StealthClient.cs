@@ -120,34 +120,33 @@ namespace StealthAPI
                     break;
 
                 case PacketType.SCExecEventProc:
-                    var eventCode = packet.Data[0];
                     var eventType = (EventTypes)packet.Data[0];
+                    var paramCount = packet.Data[1];
 
-
-                    var parameters = new ArrayList();
+                    ArrayList parameters = new ArrayList();
                     using (var stream = new MemoryStream(packet.Data, 2, packet.DataLength - 2))
                     using (var reader = new BinaryReader(stream))
                     {
                         while (stream.Position < stream.Length - 1)
                         {
                             var type = reader.ReadByte();
-                            var size = reader.ReadUInt32();
                             switch ((DataType)type)
                             {
                                 case DataType.parUnicodeString:
-                                    parameters.Add(Encoding.Unicode.GetString(reader.ReadBytes(Convert.ToInt32(size))));
+                                    var size = (int)reader.ReadUInt32();
+                                    parameters.Add(Encoding.Unicode.GetString(reader.ReadBytes(size * 2)));
                                     break;
                                 case DataType.parInteger:
                                     parameters.Add(reader.ReadInt32());
                                     break;
                                 case DataType.parCardinal:
-                                    parameters.Add(reader.ReadUInt32());
+                                    parameters.Add(reader.ReadUInt16());
                                     break;
                                 case DataType.parBoolean:
                                     parameters.Add(reader.ReadBoolean());
                                     break;
                                 case DataType.parWord:
-                                    parameters.Add(reader.ReadUInt16());
+                                    parameters.Add(reader.ReadInt16());
                                     break;
                                 case DataType.parByte:
                                     parameters.Add(reader.ReadByte());
@@ -157,7 +156,7 @@ namespace StealthAPI
                     }
 
 
-                    var data = new ExecEventProcData(eventCode, eventType, parameters);
+                    ExecEventProcData data = new ExecEventProcData(eventType, parameters);
                     new Task(() => OnServerEventRecieve(data)).Start();
                     break;
                 default:

@@ -14,39 +14,97 @@ namespace StealthAPI
 
     public class ItemEventArgs : EventArgs
     {
-        public ItemEventArgs(uint itemId)
+        public ItemEventArgs(int itemId)
         {
             ItemId = itemId;
         }
-        public uint ItemId { get; private set; }
+        public int ItemId { get; private set; }
     }
     public class ObjectEventArgs : EventArgs
     {
-        public ObjectEventArgs(uint objectId)
+        public ObjectEventArgs(int objectId)
         {
             ObjectId = objectId;
         }
-        public uint ObjectId { get; private set; }
+        public int ObjectId { get; private set; }
+    }
+    public class MessangerErrorEventArgs : EventArgs
+    {
+        public MessangerErrorEventArgs(string eventMsg)
+        {
+            Message = eventMsg;
+        }
+        public string Message { get; private set; }
+    }
+    public class MessangerTextEventArgs : MessangerErrorEventArgs
+    {
+        public MessangerTextEventArgs(string senderNickname, string senderId, string chatId, string eventMsg)
+            : base(eventMsg)
+        {
+            SenderNickname = senderNickname;
+            SenderId = senderId;
+            ChatId = chatId;
+        }
+        public string SenderNickname { get; private set; }
+        public string SenderId { get; private set; }
+        public string ChatId { get; private set; }
+    }
+    public class UpdateObjectStatsEventArgs : EventArgs
+    {
+        public UpdateObjectStatsEventArgs(int objectId, int currentLife, int maxLife, int currentMana, int maxMana, int currentStamina, int maxStamina)
+        {
+            ObjectId = objectId;
+            CurrentLife = currentLife;
+            MaxLife = maxLife;
+            CurrentMana = currentMana;
+            MaxMana = maxMana;
+            CurrentStamina = currentStamina;
+            MaxStamina = maxStamina;
+        }
+
+        public int ObjectId { get; set; }
+        public int CurrentLife { get; set; }
+        public int MaxLife { get; set; }
+        public int CurrentMana { get; set; }
+        public int MaxMana { get; set; }
+        public int CurrentStamina { get; set; }
+        public int MaxStamina { get; set; }
+    }
+    public class SetGlobalVarEventArgs : EventArgs
+    {
+        public SetGlobalVarEventArgs(string name, string value)
+        {
+            Name = name;
+            Value = value;
+        }
+
+        public string Name { get; set; }
+        public string Value { get; set; }
+    }
+    public class MessangerIncomingTextEventArgs : MessangerTextEventArgs
+    {
+        public MessangerIncomingTextEventArgs(MessangerType messangerType, string senderNickname, string senderId, string chatId, string eventMsg, MessangerEventType eventCode)
+            : base(senderNickname, senderId, chatId, eventMsg)
+        {
+            MessangerType = messangerType;
+            EventCode = eventCode;
+        }
+        public MessangerType MessangerType { get; set; }
+        public MessangerEventType EventCode { get; set; }
     }
     public class SpeechEventArgs : EventArgs
     {
-        public SpeechEventArgs(string text, string senderName, string senderId)
+        public SpeechEventArgs(string text, string senderName, int senderId)
         {
             Text = text;
             SenderName = senderName;
             SenderId = senderId;
         }
-        public SpeechEventArgs(string text, string senderName)
-        {
-            Text = text;
-            SenderName = senderName;
-            //SenderId = senderId;
-        }
         public string Text { get; private set; }
         public string SenderName { get; private set; }
-        public string SenderId { get; private set; }
+        public int SenderId { get; private set; }
     }
-
+    
     public class MoveRejectionEventArgs : EventArgs
     {
         public MoveRejectionEventArgs(ushort xSource, ushort ySource, byte direction, ushort xDest, ushort yDest)
@@ -66,30 +124,30 @@ namespace StealthAPI
     }
     public class DrawContainerEventArgs : EventArgs
     {
-        public DrawContainerEventArgs(uint containerId, ushort modelGump)
+        public DrawContainerEventArgs(int containerId, ushort modelGump)
         {
             ContainerId = containerId;
             ModelGump = modelGump;
         }
-        public uint ContainerId { get; private set; }
+        public int ContainerId { get; private set; }
         public ushort ModelGump { get; private set; }
     }
     public class AddItemToContainerEventArgs : ItemEventArgs
     {
-        public AddItemToContainerEventArgs(uint itemId, uint containerId)
+        public AddItemToContainerEventArgs(int itemId, int containerId)
             : base(itemId)
         {
             ContainerId = containerId;
         }
-        public uint ContainerId { get; private set; }
+        public int ContainerId { get; private set; }
     }
     public class AddMultipleItemsInContainerEventArgs : EventArgs
     {
-        public AddMultipleItemsInContainerEventArgs(uint containerId)
+        public AddMultipleItemsInContainerEventArgs(int containerId)
         {
             ContainerId = containerId;
         }
-        public uint ContainerId { get; private set; }
+        public int ContainerId { get; private set; }
     }
     public class RejectMoveItemEventArgs : EventArgs
     {
@@ -101,17 +159,17 @@ namespace StealthAPI
     }
     public class MenuEventArgs : EventArgs
     {
-        public MenuEventArgs(uint dialogId, ushort menuId)
+        public MenuEventArgs(int dialogId, ushort menuId)
         {
             DialogId = dialogId;
             MenuId = menuId;
         }
-        public uint DialogId { get; private set; }
+        public int DialogId { get; private set; }
         public ushort MenuId { get; private set; }
     }
     public class MapMessageEventArgs : ItemEventArgs
     {
-        public MapMessageEventArgs(uint itemId, int centerX, int centerY)
+        public MapMessageEventArgs(int itemId, int centerX, int centerY)
             : base(itemId)
         {
             CenterX = centerX;
@@ -122,39 +180,32 @@ namespace StealthAPI
     }
     public class AllowRefuseAttackEventArgs : EventArgs
     {
-        public AllowRefuseAttackEventArgs(uint targetId, bool isAttackOk)
+        public AllowRefuseAttackEventArgs(int targetId, bool isAttackOk)
         {
             TargetId = targetId;
             IsAttackOK = isAttackOk;
         }
-        public uint TargetId { get; private set; }
+        public int TargetId { get; private set; }
         public bool IsAttackOK { get; private set; }
     }
     public class ClilocSpeechEventArgs : EventArgs
     {
-        public ClilocSpeechEventArgs(int senderId, string senderName, string text)
+        public ClilocSpeechEventArgs(int senderId, string senderName, int clilocId, string text)
         {
             SenderId = senderId;
             SenderName = senderName;
-            //ClilocId = clilocId;
-            Text = text;
-        }
-        public ClilocSpeechEventArgs(int senderId, string text)
-        {
-            SenderId = senderId;
-            //SenderName = senderName;
-            //ClilocId = clilocId;
+            ClilocId = clilocId;
             Text = text;
         }
         public int SenderId { get; private set; }
         public string SenderName { get; private set; }
-        public uint ClilocId { get; private set; }
+        public int ClilocId { get; private set; }
         public string Text { get; private set; }
     }
     public class ClilocSpeechAffixEventArgs : ClilocSpeechEventArgs
     {
-        public ClilocSpeechAffixEventArgs(int senderId, string senderName, string affix, string text)
-            : base(senderId, senderName, text)
+        public ClilocSpeechAffixEventArgs(int senderId, string senderName, int clilocId, string affix, string text)
+            : base(senderId, senderName, clilocId, text)
         {
             Affix = affix;
         }
@@ -162,7 +213,7 @@ namespace StealthAPI
     }
     public class UnicodeSpeechEventArgs : EventArgs
     {
-        public UnicodeSpeechEventArgs(string text, string senderName, uint senderId)
+        public UnicodeSpeechEventArgs(string text, string senderName, int senderId)
         {
             Text = text;
             SenderName = senderName;
@@ -170,37 +221,36 @@ namespace StealthAPI
         }
         public string Text { get; private set; }
         public string SenderName { get; private set; }
-        public uint SenderId { get; private set; }
+        public int SenderId { get; private set; }
     }
     public class Buff_DebuffSystemEventArgs : ObjectEventArgs
     {
-        public Buff_DebuffSystemEventArgs(uint objectId, ushort attributeId, bool isEnabled)
+        public Buff_DebuffSystemEventArgs(int objectId, ushort attributeId, bool isEnabled)
             : base(objectId)
         {
             AttributeId = attributeId;
             IsEnabled = isEnabled;
         }
-        public Buff_DebuffSystemEventArgs(uint objectId) : base(objectId){}
         public ushort AttributeId { get; private set; }
         public bool IsEnabled { get; private set; }
     }
     public class CharAnimationEventArgs : ObjectEventArgs
     {
-        public CharAnimationEventArgs(uint objectId, uint action)
+        public CharAnimationEventArgs(int objectId, ushort action)
             : base(objectId)
         {
             Action = action;
         }
-        public uint Action { get; private set; }
+        public ushort Action { get; private set; }
     }
     public class ICQIncomingTextEventArgs : EventArgs
     {
-        public ICQIncomingTextEventArgs(uint uin, string text)
+        public ICQIncomingTextEventArgs(int uin, string text)
         {
             UIN = uin;
             Text = text;
         }
-        public uint UIN { get; private set; }
+        public int UIN { get; private set; }
         public string Text { get; private set; }
     }
     public class ICQErrorEventArgs : EventArgs
@@ -213,25 +263,25 @@ namespace StealthAPI
     }
     public class IncomingGumpEventArgs : EventArgs
     {
-        public IncomingGumpEventArgs(uint serial, uint gumpId, uint x, uint y)
+        public IncomingGumpEventArgs(int serial, uint gumpId, int x, int y)
         {
             Serial = serial;
             GumpId = gumpId;
             X = x;
             Y = y;
         }
-        public uint Serial { get; private set; }
+        public int Serial { get; private set; }
         public uint GumpId { get; private set; }
-        public uint X { get; private set; }
-        public uint Y { get; private set; }
+        public int X { get; private set; }
+        public int Y { get; private set; }
     }
     public class WindowsMessageEventArgs : EventArgs
     {
-        public WindowsMessageEventArgs(uint lParam)
+        public WindowsMessageEventArgs(int lParam)
         {
             LParam = lParam;
         }
-        public uint LParam { get; private set; }
+        public int LParam { get; private set; }
     }
     public class SoundEventArgs : EventArgs
     {
@@ -269,15 +319,15 @@ namespace StealthAPI
     }
     public class PartyInviteEventArgs : EventArgs
     {
-        public PartyInviteEventArgs(uint inviterId)
+        public PartyInviteEventArgs(int inviterId)
         {
             InviterId = inviterId;
         }
-        public uint InviterId { get; private set; }
+        public int InviterId { get; private set; }
     }
     public class MapPinEventArgs : EventArgs
     {
-        public MapPinEventArgs(uint id, byte action,byte pinId,ushort x,ushort y)
+        public MapPinEventArgs(int id, byte action,byte pinId,ushort x,ushort y)
         {
             ID = id;
             Action = action;
@@ -286,7 +336,7 @@ namespace StealthAPI
             Y = y;
         }
 
-        public uint ID { get; private set; }
+        public int ID { get; private set; }
         public byte Action { get; set; }
         public byte PinId { get; set; }
         public ushort X { get; set; }
@@ -294,7 +344,7 @@ namespace StealthAPI
     }
     public class GumpTextEntryEventArgs : EventArgs
     {
-        public GumpTextEntryEventArgs(uint gumpTextEntryId, string title,byte inputStyle, uint maxValue, string title2)
+        public GumpTextEntryEventArgs(int gumpTextEntryId, string title,byte inputStyle, int maxValue, string title2)
         {
             GumpTextEntryID = gumpTextEntryId;
             Title = title;
@@ -303,15 +353,15 @@ namespace StealthAPI
             Title2 = title2;
         }
 
-        public uint GumpTextEntryID { get; private set; }
+        public int GumpTextEntryID { get; private set; }
         public string Title { get; set; }
         public byte InputStyle { get; set; }
-        public uint MaxValue { get; set; }
+        public int MaxValue { get; set; }
         public string Title2 { get; set; }
     }
     public class GraphicalEffectEventArgs : EventArgs
     {
-        public GraphicalEffectEventArgs(uint srcId, ushort srcX,ushort srcY,int srcZ,uint dstId, ushort dstX,ushort dstY,int dstZ, byte type, ushort itemId, byte fixedDir)
+        public GraphicalEffectEventArgs(int srcId, ushort srcX,ushort srcY,int srcZ,int dstId, ushort dstX,ushort dstY,int dstZ, byte type, ushort itemId, byte fixedDir)
         {
             SrcId = srcId;
             SrcX = srcX;
@@ -326,11 +376,11 @@ namespace StealthAPI
             FixedDir = fixedDir;
         }
 
-        public uint SrcId { get; private set; }
+        public int SrcId { get; private set; }
         public ushort SrcX { get; private set; }
         public ushort SrcY { get; private set; }
         public int SrcZ { get; private set; }
-        public uint DstId { get; private set; }
+        public int DstId { get; private set; }
         public ushort DstX { get; private set; }
         public ushort DstY { get; private set; }
         public int DstZ { get; private set; }

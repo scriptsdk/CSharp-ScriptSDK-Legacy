@@ -92,7 +92,7 @@ namespace StealthAPI
             {
                 var handler = ItemInfoInternal;
                 if (handler == null)
-                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.ItemInfo, _eventFunctionCounter++);
+                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.ItemInfo);
                 ItemInfoInternal += value;
             }
             remove
@@ -102,7 +102,7 @@ namespace StealthAPI
                 var handler = ItemInfoInternal;
                 if (handler == null)
                 {
-                    _eventFunctionCounter--;
+                    
                     _client.SendPacket(PacketType.SCClearEventProc, EventTypes.ItemInfo);
                 }
             }
@@ -113,7 +113,7 @@ namespace StealthAPI
             {
                 var handler = ItemDeletedInternal;
                 if (handler == null)
-                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.ItemDeleted, _eventFunctionCounter++);
+                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.ItemDeleted);
                 ItemDeletedInternal += value;
             }
             remove
@@ -123,7 +123,7 @@ namespace StealthAPI
                 var handler = ItemDeletedInternal;
                 if (handler == null)
                 {
-                    _eventFunctionCounter--;
+                    
                     _client.SendPacket(PacketType.SCClearEventProc, EventTypes.ItemDeleted);
                 }
             }
@@ -134,7 +134,7 @@ namespace StealthAPI
             {
                 var handler = SpeechInternal;
                 if (handler == null)
-                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.Speech, _eventFunctionCounter++);
+                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.Speech);
                 SpeechInternal += value;
             }
             remove
@@ -144,7 +144,7 @@ namespace StealthAPI
                 var handler = SpeechInternal;
                 if (handler == null)
                 {
-                    _eventFunctionCounter--;
+                    
                     _client.SendPacket(PacketType.SCClearEventProc, EventTypes.Speech);
                 }
             }
@@ -155,7 +155,7 @@ namespace StealthAPI
             {
                 var handler = DrawGamePlayerInternal;
                 if (handler == null)
-                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.DrawGamePlayer, _eventFunctionCounter++);
+                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.DrawGamePlayer);
                 DrawGamePlayerInternal += value;
             }
             remove
@@ -165,7 +165,6 @@ namespace StealthAPI
                 var handler = DrawGamePlayerInternal;
                 if (handler == null)
                 {
-                    _eventFunctionCounter--;
                     _client.SendPacket(PacketType.SCClearEventProc, EventTypes.DrawGamePlayer);
                 }
             }
@@ -176,7 +175,7 @@ namespace StealthAPI
             {
                 var handler = MoveRejectionInternal;
                 if (handler == null)
-                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.MoveRejection, _eventFunctionCounter++);
+                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.MoveRejection);
                 MoveRejectionInternal += value;
             }
             remove
@@ -186,7 +185,7 @@ namespace StealthAPI
                 var handler = MoveRejectionInternal;
                 if (handler == null)
                 {
-                    _eventFunctionCounter--;
+                    
                     _client.SendPacket(PacketType.SCClearEventProc, EventTypes.MoveRejection);
                 }
             }
@@ -197,7 +196,7 @@ namespace StealthAPI
             {
                 var handler = DrawContainerInternal;
                 if (handler == null)
-                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.DrawContainer, _eventFunctionCounter++);
+                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.DrawContainer);
                 DrawContainerInternal += value;
             }
             remove
@@ -207,7 +206,7 @@ namespace StealthAPI
                 var handler = DrawContainerInternal;
                 if (handler == null)
                 {
-                    _eventFunctionCounter--;
+                    
                     _client.SendPacket(PacketType.SCClearEventProc, EventTypes.DrawContainer);
                 }
             }
@@ -218,7 +217,7 @@ namespace StealthAPI
             {
                 var handler = AddItemToContainerInternal;
                 if (handler == null)
-                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.AddItemToContainer, _eventFunctionCounter++);
+                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.AddItemToContainer);
                 AddItemToContainerInternal += value;
             }
             remove
@@ -228,7 +227,7 @@ namespace StealthAPI
                 var handler = AddItemToContainerInternal;
                 if (handler == null)
                 {
-                    _eventFunctionCounter--;
+                    
                     _client.SendPacket(PacketType.SCClearEventProc, EventTypes.AddItemToContainer);
                 }
             }
@@ -239,7 +238,7 @@ namespace StealthAPI
             {
                 var handler = AddMultipleItemsInContainerInternal;
                 if (handler == null)
-                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.AddMultipleItemsInCont, _eventFunctionCounter++);
+                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.AddMultipleItemsInCont);
                 AddMultipleItemsInContainerInternal += value;
             }
             remove
@@ -249,7 +248,7 @@ namespace StealthAPI
                 var handler = AddMultipleItemsInContainerInternal;
                 if (handler == null)
                 {
-                    _eventFunctionCounter--;
+                    
                     _client.SendPacket(PacketType.SCClearEventProc, EventTypes.AddMultipleItemsInCont);
                 }
             }
@@ -260,7 +259,7 @@ namespace StealthAPI
             {
                 var handler = RejectMoveItemInternal;
                 if (handler == null)
-                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.RejectMoveItem, _eventFunctionCounter++);
+                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.RejectMoveItem);
                 RejectMoveItemInternal += value;
             }
             remove
@@ -270,7 +269,7 @@ namespace StealthAPI
                 var handler = RejectMoveItemInternal;
                 if (handler == null)
                 {
-                    _eventFunctionCounter--;
+                    
                     _client.SendPacket(PacketType.SCClearEventProc, EventTypes.RejectMoveItem);
                 }
             }
@@ -281,7 +280,7 @@ namespace StealthAPI
             {
                 var handler = UpdateCharInternal;
                 if (handler == null)
-                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.UpdateChar, _eventFunctionCounter++);
+                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.UpdateChar);
                 UpdateCharInternal += value;
             }
             remove
@@ -291,7 +290,7 @@ namespace StealthAPI
                 var handler = UpdateCharInternal;
                 if (handler == null)
                 {
-                    _eventFunctionCounter--;
+                    
                     _client.SendPacket(PacketType.SCClearEventProc, EventTypes.UpdateChar);
                 }
             }
@@ -302,7 +301,7 @@ namespace StealthAPI
             {
                 var handler = DrawObjectInternal;
                 if (handler == null)
-                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.DrawObject, _eventFunctionCounter++);
+                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.DrawObject);
                 DrawObjectInternal += value;
             }
             remove
@@ -312,7 +311,7 @@ namespace StealthAPI
                 var handler = DrawObjectInternal;
                 if (handler == null)
                 {
-                    _eventFunctionCounter--;
+                    
                     _client.SendPacket(PacketType.SCClearEventProc, EventTypes.DrawObject);
                 }
             }
@@ -323,7 +322,7 @@ namespace StealthAPI
             {
                 var handler = MenuInternal;
                 if (handler == null)
-                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.Menu, _eventFunctionCounter++);
+                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.Menu);
                 MenuInternal += value;
             }
             remove
@@ -333,7 +332,7 @@ namespace StealthAPI
                 var handler = MenuInternal;
                 if (handler == null)
                 {
-                    _eventFunctionCounter--;
+                    
                     _client.SendPacket(PacketType.SCClearEventProc, EventTypes.Menu);
                 }
             }
@@ -344,7 +343,7 @@ namespace StealthAPI
             {
                 var handler = MapMessageInternal;
                 if (handler == null)
-                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.MapMessage, _eventFunctionCounter++);
+                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.MapMessage);
                 MapMessageInternal += value;
             }
             remove
@@ -354,7 +353,7 @@ namespace StealthAPI
                 var handler = MapMessageInternal;
                 if (handler == null)
                 {
-                    _eventFunctionCounter--;
+                    
                     _client.SendPacket(PacketType.SCClearEventProc, EventTypes.MapMessage);
                 }
             }
@@ -365,7 +364,7 @@ namespace StealthAPI
             {
                 var handler = AllowRefuseAttackInternal;
                 if (handler == null)
-                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.Allow_RefuseAttack, _eventFunctionCounter++);
+                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.Allow_RefuseAttack);
                 AllowRefuseAttackInternal += value;
             }
             remove
@@ -375,7 +374,7 @@ namespace StealthAPI
                 var handler = AllowRefuseAttackInternal;
                 if (handler == null)
                 {
-                    _eventFunctionCounter--;
+                    
                     _client.SendPacket(PacketType.SCClearEventProc, EventTypes.Allow_RefuseAttack);
                 }
             }
@@ -386,7 +385,7 @@ namespace StealthAPI
             {
                 var handler = ClilocSpeechInternal;
                 if (handler == null)
-                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.ClilocSpeech, _eventFunctionCounter++);
+                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.ClilocSpeech);
                 ClilocSpeechInternal += value;
             }
             remove
@@ -396,7 +395,7 @@ namespace StealthAPI
                 var handler = ClilocSpeechInternal;
                 if (handler == null)
                 {
-                    _eventFunctionCounter--;
+                    
                     _client.SendPacket(PacketType.SCClearEventProc, EventTypes.ClilocSpeech);
                 }
             }
@@ -408,7 +407,7 @@ namespace StealthAPI
             {
                 var handler = ClilocSpeechAffixInternal;
                 if (handler == null)
-                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.ClilocSpeechAffix, _eventFunctionCounter++);
+                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.ClilocSpeechAffix);
                 ClilocSpeechAffixInternal += value;
             }
             remove
@@ -418,7 +417,7 @@ namespace StealthAPI
                 var handler = ClilocSpeechAffixInternal;
                 if (handler == null)
                 {
-                    _eventFunctionCounter--;
+                    
                     _client.SendPacket(PacketType.SCClearEventProc, EventTypes.ClilocSpeechAffix);
                 }
             }
@@ -430,7 +429,7 @@ namespace StealthAPI
             {
                 var handler = UnicodeSpeechInternal;
                 if (handler == null)
-                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.UnicodeSpeech, _eventFunctionCounter++);
+                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.UnicodeSpeech);
                 UnicodeSpeechInternal += value;
             }
             remove
@@ -440,7 +439,7 @@ namespace StealthAPI
                 var handler = UnicodeSpeechInternal;
                 if (handler == null)
                 {
-                    _eventFunctionCounter--;
+                    
                     _client.SendPacket(PacketType.SCClearEventProc, EventTypes.UnicodeSpeech);
                 }
             }
@@ -451,7 +450,7 @@ namespace StealthAPI
             {
                 var handler = Buff_DebuffSystemInternal;
                 if (handler == null)
-                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.Buff_DebuffSystem, _eventFunctionCounter++);
+                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.Buff_DebuffSystem);
                 Buff_DebuffSystemInternal += value;
             }
             remove
@@ -461,7 +460,7 @@ namespace StealthAPI
                 var handler = Buff_DebuffSystemInternal;
                 if (handler == null)
                 {
-                    _eventFunctionCounter--;
+                    
                     _client.SendPacket(PacketType.SCClearEventProc, EventTypes.Buff_DebuffSystem);
                 }
             }
@@ -472,7 +471,7 @@ namespace StealthAPI
             {
                 var handler = ClientSendResyncInternal;
                 if (handler == null)
-                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.ClientSendResync, _eventFunctionCounter++);
+                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.ClientSendResync);
                 ClientSendResyncInternal += value;
             }
             remove
@@ -482,7 +481,7 @@ namespace StealthAPI
                 var handler = ClientSendResyncInternal;
                 if (handler == null)
                 {
-                    _eventFunctionCounter--;
+                    
                     _client.SendPacket(PacketType.SCClearEventProc, EventTypes.ClientSendResync);
                 }
             }
@@ -493,7 +492,7 @@ namespace StealthAPI
             {
                 var handler = CharAnimationInternal;
                 if (handler == null)
-                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.CharAnimation, _eventFunctionCounter++);
+                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.CharAnimation);
                 CharAnimationInternal += value;
             }
             remove
@@ -503,7 +502,7 @@ namespace StealthAPI
                 var handler = CharAnimationInternal;
                 if (handler == null)
                 {
-                    _eventFunctionCounter--;
+                    
                     _client.SendPacket(PacketType.SCClearEventProc, EventTypes.CharAnimation);
                 }
             }
@@ -514,7 +513,7 @@ namespace StealthAPI
             {
                 var handler = ICQDisconnectInternal;
                 if (handler == null)
-                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.ICQDisconnect, _eventFunctionCounter++);
+                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.ICQDisconnect);
                 ICQDisconnectInternal += value;
             }
             remove
@@ -524,7 +523,7 @@ namespace StealthAPI
                 var handler = ICQDisconnectInternal;
                 if (handler == null)
                 {
-                    _eventFunctionCounter--;
+                    
                     _client.SendPacket(PacketType.SCClearEventProc, EventTypes.ICQDisconnect);
                 }
             }
@@ -535,7 +534,7 @@ namespace StealthAPI
             {
                 var handler = ICQConnectInternal;
                 if (handler == null)
-                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.ICQConnect, _eventFunctionCounter++);
+                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.ICQConnect);
                 ICQConnectInternal += value;
             }
             remove
@@ -545,7 +544,7 @@ namespace StealthAPI
                 var handler = ICQConnectInternal;
                 if (handler == null)
                 {
-                    _eventFunctionCounter--;
+                    
                     _client.SendPacket(PacketType.SCClearEventProc, EventTypes.ICQConnect);
                 }
             }
@@ -556,7 +555,7 @@ namespace StealthAPI
             {
                 var handler = ICQIncomingTextInternal;
                 if (handler == null)
-                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.ICQIncomingText, _eventFunctionCounter++);
+                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.ICQIncomingText);
                 ICQIncomingTextInternal += value;
             }
             remove
@@ -566,7 +565,7 @@ namespace StealthAPI
                 var handler = ICQIncomingTextInternal;
                 if (handler == null)
                 {
-                    _eventFunctionCounter--;
+                    
                     _client.SendPacket(PacketType.SCClearEventProc, EventTypes.ICQIncomingText);
                 }
             }
@@ -577,7 +576,7 @@ namespace StealthAPI
             {
                 var handler = ICQErrorInternal;
                 if (handler == null)
-                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.ICQError, _eventFunctionCounter++);
+                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.ICQError);
                 ICQErrorInternal += value;
             }
             remove
@@ -587,7 +586,7 @@ namespace StealthAPI
                 var handler = ICQErrorInternal;
                 if (handler == null)
                 {
-                    _eventFunctionCounter--;
+                    
                     _client.SendPacket(PacketType.SCClearEventProc, EventTypes.ICQError);
                 }
             }
@@ -598,7 +597,7 @@ namespace StealthAPI
             {
                 var handler = IncomingGumpInternal;
                 if (handler == null)
-                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.IncomingGump, _eventFunctionCounter++);
+                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.IncomingGump);
                 IncomingGumpInternal += value;
             }
             remove
@@ -608,7 +607,7 @@ namespace StealthAPI
                 var handler = IncomingGumpInternal;
                 if (handler == null)
                 {
-                    _eventFunctionCounter--;
+                    
                     _client.SendPacket(PacketType.SCClearEventProc, EventTypes.IncomingGump);
                 }
             }
@@ -619,7 +618,7 @@ namespace StealthAPI
             {
                 var handler = Timer1Internal;
                 if (handler == null)
-                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.Timer1, _eventFunctionCounter++);
+                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.Timer1);
                 Timer1Internal += value;
             }
             remove
@@ -629,7 +628,7 @@ namespace StealthAPI
                 var handler = Timer1Internal;
                 if (handler == null)
                 {
-                    _eventFunctionCounter--;
+                    
                     _client.SendPacket(PacketType.SCClearEventProc, EventTypes.Timer1);
                 }
             }
@@ -640,7 +639,7 @@ namespace StealthAPI
             {
                 var handler = Timer2Internal;
                 if (handler == null)
-                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.Timer2, _eventFunctionCounter++);
+                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.Timer2);
                 Timer2Internal += value;
             }
             remove
@@ -650,7 +649,7 @@ namespace StealthAPI
                 var handler = Timer2Internal;
                 if (handler == null)
                 {
-                    _eventFunctionCounter--;
+                    
                     _client.SendPacket(PacketType.SCClearEventProc, EventTypes.Timer2);
                 }
             }
@@ -661,7 +660,7 @@ namespace StealthAPI
             {
                 var handler = WindowsMessageInternal;
                 if (handler == null)
-                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.WindowsMessage, _eventFunctionCounter++);
+                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.WindowsMessage);
                 WindowsMessageInternal += value;
             }
             remove
@@ -671,7 +670,7 @@ namespace StealthAPI
                 var handler = WindowsMessageInternal;
                 if (handler == null)
                 {
-                    _eventFunctionCounter--;
+                    
                     _client.SendPacket(PacketType.SCClearEventProc, EventTypes.WindowsMessage);
                 }
             }
@@ -682,7 +681,7 @@ namespace StealthAPI
             {
                 var handler = SoundInternal;
                 if (handler == null)
-                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.Sound, _eventFunctionCounter++);
+                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.Sound);
                 SoundInternal += value;
             }
             remove
@@ -692,7 +691,7 @@ namespace StealthAPI
                 var handler = SoundInternal;
                 if (handler == null)
                 {
-                    _eventFunctionCounter--;
+                    
                     _client.SendPacket(PacketType.SCClearEventProc, EventTypes.Sound);
                 }
             }
@@ -703,7 +702,7 @@ namespace StealthAPI
             {
                 var handler = DeathInternal;
                 if (handler == null)
-                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.Death, _eventFunctionCounter++);
+                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.Death);
                 DeathInternal += value;
             }
             remove
@@ -713,7 +712,7 @@ namespace StealthAPI
                 var handler = DeathInternal;
                 if (handler == null)
                 {
-                    _eventFunctionCounter--;
+                    
                     _client.SendPacket(PacketType.SCClearEventProc, EventTypes.Death);
                 }
             }
@@ -724,7 +723,7 @@ namespace StealthAPI
             {
                 var handler = QuestArrowInternal;
                 if (handler == null)
-                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.QuestArrow, _eventFunctionCounter++);
+                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.QuestArrow);
                 QuestArrowInternal += value;
             }
             remove
@@ -734,7 +733,7 @@ namespace StealthAPI
                 var handler = QuestArrowInternal;
                 if (handler == null)
                 {
-                    _eventFunctionCounter--;
+                    
                     _client.SendPacket(PacketType.SCClearEventProc, EventTypes.QuestArrow);
                 }
             }
@@ -745,7 +744,7 @@ namespace StealthAPI
             {
                 var handler = PartyInviteInternal;
                 if (handler == null)
-                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.PartyInvite, _eventFunctionCounter++);
+                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.PartyInvite);
                 PartyInviteInternal += value;
             }
             remove
@@ -755,7 +754,7 @@ namespace StealthAPI
                 var handler = PartyInviteInternal;
                 if (handler == null)
                 {
-                    _eventFunctionCounter--;
+                    
                     _client.SendPacket(PacketType.SCClearEventProc, EventTypes.PartyInvite);
                 }
             }
@@ -767,7 +766,7 @@ namespace StealthAPI
             {
                 var handler = MapPinInternal;
                 if (handler == null)
-                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.MapPin, _eventFunctionCounter++);
+                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.MapPin);
                 MapPinInternal += value;
             }
             remove
@@ -777,7 +776,7 @@ namespace StealthAPI
                 var handler = MapPinInternal;
                 if (handler == null)
                 {
-                    _eventFunctionCounter--;
+                    
                     _client.SendPacket(PacketType.SCClearEventProc, EventTypes.MapPin);
                 }
             }
@@ -789,7 +788,7 @@ namespace StealthAPI
             {
                 var handler = GumpTextEntryInternal;
                 if (handler == null)
-                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.GumpTextEntry, _eventFunctionCounter++);
+                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.GumpTextEntry);
                 GumpTextEntryInternal += value;
             }
             remove
@@ -799,7 +798,7 @@ namespace StealthAPI
                 var handler = GumpTextEntryInternal;
                 if (handler == null)
                 {
-                    _eventFunctionCounter--;
+                    
                     _client.SendPacket(PacketType.SCClearEventProc, EventTypes.GumpTextEntry);
                 }
             }
@@ -811,7 +810,7 @@ namespace StealthAPI
             {
                 var handler = GraphicalEffectInternal;
                 if (handler == null)
-                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.GraphicalEffect, _eventFunctionCounter++);
+                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.GraphicalEffect);
                 GraphicalEffectInternal += value;
             }
             remove
@@ -821,7 +820,7 @@ namespace StealthAPI
                 var handler = GraphicalEffectInternal;
                 if (handler == null)
                 {
-                    _eventFunctionCounter--;
+                    
                     _client.SendPacket(PacketType.SCClearEventProc, EventTypes.GraphicalEffect);
                 }
             }
@@ -833,7 +832,7 @@ namespace StealthAPI
             {
                 var handler = IRCIncomingTextInternal;
                 if (handler == null)
-                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.IRCIncomingText, _eventFunctionCounter++);
+                    _client.SendPacket(PacketType.SCSetEventProc, EventTypes.IRCIncomingText);
                 IRCIncomingTextInternal += value;
             }
             remove
@@ -843,7 +842,7 @@ namespace StealthAPI
                 var handler = IRCIncomingTextInternal;
                 if (handler == null)
                 {
-                    _eventFunctionCounter--;
+                    
                     _client.SendPacket(PacketType.SCClearEventProc, EventTypes.IRCIncomingText);
                 }
             }
@@ -855,7 +854,7 @@ namespace StealthAPI
         //    {
         //        var handler = SkypeIncomingTextInternal;
         //        if (handler == null)
-        //            _client.SendPacket(PacketType.SCSetEventProc, EventTypes.SkypeEvent, _eventFunctionCounter++);
+        //            _client.SendPacket(PacketType.SCSetEventProc, EventTypes.SkypeEvent);
         //        SkypeIncomingTextInternal += value;
         //    }
         //    remove
@@ -865,7 +864,7 @@ namespace StealthAPI
         //        var handler = SkypeIncomingTextInternal;
         //        if (handler == null)
         //        {
-        //            _eventFunctionCounter--;
+        //            
         //            _client.SendPacket(PacketType.SCClearEventProc, EventTypes.SkypeEvent);
         //        }
         //    }

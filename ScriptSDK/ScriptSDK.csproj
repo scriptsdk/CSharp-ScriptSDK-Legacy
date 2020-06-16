@@ -92,6 +92,7 @@
     <Compile Include="Stealth API\Network\DataType.cs" />
     <Compile Include="Stealth API\Network\ExecEventProcData.cs" />
     <Compile Include="Stealth API\Network\Packet.cs" />
+    <Compile Include="Stealth API\Network\PacketOLD.cs" />
     <Compile Include="Stealth API\Network\PacketType.cs" />
     <Compile Include="Stealth API\Network\ServerEventArgs.cs" />
     <Compile Include="Stealth API\Network\StealthClient.cs" />

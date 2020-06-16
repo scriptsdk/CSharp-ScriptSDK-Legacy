@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Sockets;
@@ -82,8 +83,8 @@ namespace StealthAPI
 
                         var packet = new Packet();
                         packet.Method = (PacketType)_reader.ReadUInt16();
-                        packet.DataLength = _reader.ReadInt32();
-                        packet.Data = _reader.ReadBytes((int)packet.DataLength);
+                        var DataLength = _reader.ReadInt32();
+                        packet.Data = _reader.ReadBytes((int)DataLength);
 
                         if (Stealth.EnableTracing)
                             Stealth.AddTraceMessage(string.Format("Read packet. Type: {0}, Param: {1}",
@@ -190,41 +191,36 @@ namespace StealthAPI
             while (_writer == null || !_writer.BaseStream.CanWrite)
                 Thread.Sleep(10);
 
-            if (Stealth.EnableTracing)
-                Stealth.AddTraceMessage(string.Format("Send packet. Type: {0}, Param: {1}",
-                packet.Method,
-                string.Join(",", packet.Data.Select(b => b.ToString("X2")))),
+            Trace.WriteLine(string.Format("Send packet. Type: {0}, Param: {1}",
+                    packet.Method,
+                    packet.ToString()),
                 "Stealth.Network");
             var pb = packet.GetBytes();
             var lb = BitConverter.GetBytes(pb.Length).Reverse().ToArray();
             _writer.Write(lb);
             _writer.Write(pb);
             _writer.Flush();
+
         }
 
-        internal void SendPacket(PacketType packetType, params object[] parameters)
+        public void SendPacket(PacketType packetType, params object[] parameters)
         {
             lock (this)
             {
-                var packet = new Packet { Method = packetType };
-                foreach (var p in parameters)
-                {
-                    packet.AddParameter(p);
-                }
-                packet.DataLength = (short)packet.Data.Length;
+                var packet = new Packet() { Method = packetType };
+                packet.AddParameters(parameters);
+
                 SendPacket(packet);
             }
         }
 
-        internal T SendPacket<T>(PacketType packetType, params object[] parameters)
+        public T SendPacket<T>(PacketType packetType, params object[] parameters)
         {
             lock (this)
             {
-                var packet = new Packet { Method = packetType };
-                foreach (var p in parameters)
-                    packet.AddParameter(p);
+                var packet = new Packet() { Method = packetType };
+                packet.AddParameters(parameters);
 
-                packet.DataLength = (short)packet.Data.Length;
                 SendPacket(packet);
                 return WaitReply<T>(packetType);
             }

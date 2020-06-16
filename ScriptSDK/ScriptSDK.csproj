@@ -45,6 +45,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Gumps\GumpEnums.cs" />
+    <Compile Include="Items\Runebook.cs" />
+    <Compile Include="Samples\UseRunebook.cs" />
     <Compile Include="Stealth API\Converters.cs" />
     <Compile Include="Stealth API\Data\AboutData.cs" />
     <Compile Include="Stealth API\Data\BuffIcon.cs" />

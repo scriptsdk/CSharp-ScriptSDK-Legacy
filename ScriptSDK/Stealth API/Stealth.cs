@@ -876,7 +876,6 @@ namespace StealthAPI
         private StealthClient _client;
         //private readonly Dictionary<string, int> _skills = new Dictionary<string, int>();
         private uint _dropDelay;
-        private byte _eventFunctionCounter;
         private bool _isStopped;
 
         private static Stealth _instance;

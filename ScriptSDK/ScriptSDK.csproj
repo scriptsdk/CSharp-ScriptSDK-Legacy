@@ -45,6 +45,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Gumps\GumpEnums.cs" />
+    <Compile Include="Items\Runebook.cs" />
+    <Compile Include="Samples\UseRunebook.cs" />
     <Compile Include="Stealth API\Converters.cs" />
     <Compile Include="Stealth API\Data\AboutData.cs" />
     <Compile Include="Stealth API\Data\BuffIcon.cs" />
@@ -92,6 +95,7 @@
     <Compile Include="Stealth API\Network\DataType.cs" />
     <Compile Include="Stealth API\Network\ExecEventProcData.cs" />
     <Compile Include="Stealth API\Network\Packet.cs" />
+    <Compile Include="Stealth API\Network\PacketOLD.cs" />
     <Compile Include="Stealth API\Network\PacketType.cs" />
     <Compile Include="Stealth API\Network\ServerEventArgs.cs" />
     <Compile Include="Stealth API\Network\StealthClient.cs" />
